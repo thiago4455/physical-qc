@@ -547,7 +547,7 @@
 \newcommand*\abstractfont{\small}
 \newcommand*\journalnamefont{\itshape}
 \newcommand*\volumefont{\bfseries}
-\newcommand*\cup@etal{\emph{}}
+\newcommand*\cup@etal{\emph{et al.}}
 \def\ps@plain{
   \renewcommand{\@oddhead}{\hfill{\journalnamefont\cup@journal@name}\qquad\thepage}%
   \renewcommand{\@evenhead}{\thepage\qquad\@author@i\space\cup@etal\hfill}%
@@ -1713,7 +1713,8 @@
   \cup@jnl@default%
 \fi%
 \providecommand*\cup@reference@code{% default citation style; can be modified in journal config or preamble
-  \RequirePackage[authordate-trad,noibid,backend=biber,natbib]{biblatex-chicago}
+  % \RequirePackage[authordate-trad,noibid,backend=biber,natbib]{biblatex-chicago}
+  \RequirePackage[sortcites,style=numeric,sorting=none,backend=biber]{biblatex}
   \renewcommand*{\bibfont}{\footnotesize}
 }
 \cup@reference@code
