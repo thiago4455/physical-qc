@@ -35,11 +35,49 @@
 
 When delving into the realm of quantum computing, a crucial inquiry arises: Can a quantum computer truly be realized in the physical world? This article is devoted to the exploration and elucidation of the feasibility of physically implementing quantum computers. It aims to present various models of quantum computers while engaging in a concise discussion and general analysis of the subject matter.
 
-To grasp why the physical realization of a quantum computer is viable, it is imperative to emphasize the primary obstacle in its construction: decoherence. Decoherence can be perceived as the transformation of quantum information into classical information, thereby constituting the principal barrier that separates the two domains. One might ponder why classical mechanics becomes apparent at larger scales when, in theory, the macroscopic outcomes should be explained as the culmination of multiple microscopic effects. Well, classical mechanics can be comprehended as a specific case within the vast framework of quantum mechanics, characterized by profound decoherence and the complete loss of ``quantum'' information. But why does this happen? Decoherence materializes due to the interaction between a quantum system and its surroundings, favoring certain states while obliterating superpositions.
+Quantum computing possesses a remarkable attribute: its capacity to tackle computationally demanding tasks that surpass the capabilities of classical computers. Noteworthy quantum algorithms, such as Shor's algorithm for prime factorization and Grover's algorithm for searching unsorted databases, exemplify the potential of quantum computing in areas like cryptography, optimization, simulation, and machine learning.
+
+Nonetheless, fully harnessing the power of quantum computing necessitates scalable implementations. Constructing large-scale quantum architectures presents substantial challenges due to the fragile nature of qubits and the imperative to preserve their quantum coherence, which can be easily disrupted by environmental disturbances.
+
+In the race for scalable quantum computing, current leading implementations encompass photonics-based platforms, trapped ions, and superconducting circuits. Each approach possesses distinctive strengths and trade-offs. Of particular note are superconducting circuits, which have garnered significant attention owing to their ability to attain long qubit coherence times and facilitate the realization of multi-qubit gates.\autocite{arute_2019_quantum}.
+
+While quantum computing remains in its early stages, progress in hardware development, error correction techniques, and algorithmic advancements holds the key to unlocking its transformative potential. As researchers and engineers strive to surmount the formidable challenges, quantum computing continues to captivate the scientific community and industry, offering a tantalizing glimpse into a future brimming with unparalleled computational capabilities.
+
 
 \section{Physical Propertires}
+\label{sec:physical_properties}
 
-Knowing all the obstacles of quantum systems in real situations, DiVicenzo discussed in his article \autocite{divincenzo_2000_the} the requirements for the existence and creation of a quantum computer, establishing the following criteria:
+The postulates of quantum mechanics serve as the foundational principles that underpin the theory's framework. Let us briefly delve into these fundamental postulates\autocite{cohentannoudji_1977_quantum}:
+
+\begin{enumerate}[itemsep=5px]
+  \item \emph{At a fixed time \(t_0\), the state of a physical system is defined by specifying a ket \(\ket{\psi(t_0)}\) belonging to the state space \(\mathcal{E}\)}
+
+  \item \emph{Every measurable physical quantity \(\mathcal{A}\) is described by an operator \(A\) acting in \(\mathcal{E}\); this operator is an observable.}
+
+  \item \emph{The only possible result of the measurement of a physical quantity \(\mathcal{A}\) is one of the eigenvalues of the corresponding observable \(A\).}
+
+  \item \emph{When the physical quantity A is measured on a system in the normalized state \(\ket{\psi}\) the probability \(\mathcal{P}(a_n)\)  of obtaining the eigenvalue \(a_n\) of the corresponding observable A is: \\
+          \( \mathcal{P}(a_n) = \sum_{i=1}^{g_n}\ket{\bra{u_n^i}\psi}|^2 \) \\
+          where \(g_n\) is the degree of degeneracy of \(a_n\) and \( \{ \ket{u_n^i} \} \) \( (i=1,2,\ldots, g_n) \) is an orthonormal set of vectors in the eigensubspace \(\mathcal{E}_n\) associated with the eigenvalue \(a_n\) of A.}
+
+  \item \emph{If the measurement of the physical quantity \(\mathcal{A}\) on the system in the state \(\ket{\psi }\) gives the result \(a_n\) the state of the system immediately after the measurement is the normalized projection, \(\frac{P_n\ket{\psi }}{\sqrt{\bra{\psi }P_n\ket{\psi }} }\), of \(\ket{\psi }\) onto the eigensubspace associated with \(a_n\).}
+
+  \item \emph{The time evolution of the state vector \(|\psi (t)\) is governed by the Schrödinger equation: \\
+          \(i\hbar \frac{d}{dt}\ket{\psi(t)} = H(t)\ket{\psi(t)}\) \\
+          where \(H(t)\) is observable associated with the total energy of the system.}\label{post:schroedinger}
+\end{enumerate}
+
+\noindent \(H\) is called the {\it Hamiltonian operator} of the system, and it is the generator of time translations. The eigenvalues of \(H\) are the possible values of the total energy of the system, and the corresponding eigenvectors are the stationary states of the system.
+The time evolution of the state vector \(\ket{\psi(t)}\) is governed by the Schrödinger equation, which is a linear differential equation. The solution of this equation can be encapsulated by the time evolution operator \(U(t,t_0)\), which is unitary and is given by:
+\begin{align}
+                   & U(t,t_0)       = e^{-iH(t-t_0)/\hbar} \\
+  \ket{\psi(t)}  = & U(t,t_0)\ket{\psi(t_0)}
+\end{align}
+
+\noindent In contemplating the utilization of quantum states for computational purposes, we discern that the temporal evolution, governed by an unitary operator, stands as the sole non-projective method for manipulating our state. Additionally, it is crucial to recognize the consequences of measuring the system, wherein the outcomes become confined to observables. The measurement process induces the collapse of the state into a subspace, thereby effectively destroying the previous information.
+
+With the physical constraints imposed by quantum mechanics, we can now begin to discuss the prerequisites for the existance of a quantum computer, following the criteria established by DiVincenzo \autocite{divincenzo_2000_the}:
+
 \begin{enumerate}
   \item \emph{A scalable physical system with well characterized qubits}
   \item \emph{The ability to initialize the state of the qubits to a simple fiducial state as \(\ket{000\dots}\)}
@@ -50,105 +88,179 @@ Knowing all the obstacles of quantum systems in real situations, DiVicenzo discu
   \item \emph{The ability faithfully to transmit flying qubits between specified locations}
 \end{enumerate}
 
-Before going into detail about the physical implementation of quantum computers, let's establish some definitions regarding physical systems.
+For the purpose of physical implementation of a stationary quantum computer, it is unnecessary to consider the 6th and 7th requirements at this stage. These requirements primarily pertain to the communication between quantum computers, rather than the immediate implementation of a single quantum computer. However, the remaining requirements encompass some terms that are interestig to go through.
+
+The { \it decoherence time } refers to the duration during which the delicate quantum properties of a system remain intact before being disrupted by interactions with the environment. It signifies the time scale over which quantum coherence, such as superposition and entanglement, can persist before giving way to classical behavior. A longer decoherence time is desirable for quantum systems as it allows for more robust and reliable quantum operations and computations.
+
+  { \it Gate operation time } is the duration required to perform the given unitary transformation. As seen in the relation between the Hamiltonian and the unitary operator, for a specific \(U_t\) be achieved, the hamiltonian must be applied for a duration of \(t\). Consequently, the gate operation time relies on the Hamiltonian and serves as a metric of speed within the quantum computer.
+
+The criterias also encompass the notion of a { \it “universal” set of quantum gates }. This set comprises gates capable of approximating any unitary transformation to arbitrary precision. By employing a sufficient number of gates, the set can generate any desired unitary transformation with high accuracy. Furthermore, the set of gates must accomplish this feat within a finite number of steps, ensuring efficient computation in quantum algorithms.
 
 
-The Decoherence time of a quantum system is the time it takes to interact with it's environment and turn this pure state like \(\ket{\psi} = a\ket{0} + b\ket{1}\) into a mixture \( \rho = |a|^2\ketbra{0}{0} + |b|^2\ketbra{1}{1} \).
+The physical realization of qubits presents challenges that demands careful considerations.
 
-The Gate Operation Time is the duration required to perform the given unitary transformation.
+Decoherence stands as a formidable obstacle to the stability of qubits. Qubits, being delicate quantum systems, are highly susceptible to interactions with their surrounding environment. These interactions, often induced by factors such as thermal noise, electromagnetic radiation, and inter-particle interactions, lead to decoherence. This loss of quantum coherence results in the degradation of the qubits' superposition and entanglement states. Managing and mitigating decoherence is of paramount importance to preserve the integrity of quantum computations.
+
+Fidelity, the measure of accuracy in quantum operations and measurements, plays a crucial role in achieving reliable quantum computation. Imperfections in qubit control and manipulation, coupled with environmental noise and errors in quantum gates, can introduce inaccuracies and diminish fidelity. High-fidelity operations are indispensable to ensure reliable quantum information processing and to mitigate the accumulation of errors.
+
+The evolution of quantum systems throughout computations introduces further challenges. Quantum computation involves a sequence of operations that govern the evolution of qubit states. However, even with careful control, these operations are susceptible to errors and imperfections. Over time, such errors can accumulate, potentially compromising the reliability and accuracy of prolonged computations. Addressing the impact of system evolution, including gate errors and drift, is essential to maintain the integrity of long quantum computations.
+
+To tackle these challenges, error correction and fault-tolerant techniques play a vital role. Quantum error correction codes provide a means to detect and correct errors, offering protection against the detrimental effects of decoherence and noise. Fault-tolerant techniques, such as the use of ancilla qubits, can be employed to mitigate the impact of errors and imperfections. To be able to perform fault-tolerant techniques, there are some criterias outlined by John Preskill in his article ``Reliable Quantum Computers''~\autocite{preskill_1998_reliable}.
+
+The performance of a quantum computer is intricately tied to various system properties, including the relation between the decoherence time and the gate operation time. It is imperative that the decoherence time significantly surpasses the gate operation time, allowing the quantum computer to execute multiple operations before succumbing to the quantum information is lost.
+
+These properties are contingent upon the specific physical implementation of the quantum computer. In the next chapters, we will look into implementations centered around photon cavities~\ref{cap:photonic}, trapped ions~\ref{cap:ion}, and superconducting circuits~\ref{cap:superconductor}. Through this exploration, we aim to initiate a discussion regarding the influence of these implementations on the mentioned properties.
+
+% \begin{enumerate}
+%   \item \emph{Do not use the same bit twice}
+%         % \item \emph{The ancilla must be prepared properly, so that the fault-tolerant syndrome measurement diagnoses the errors without spoiling the coherence of the data}
+%   \item \emph{Copy the
+%           errors, not the data}
+%   \item \emph{Verify when you encode a known quantum state}
+%   \item \emph{Repeat operations}
+%   \item \emph{Use the right code}
+% \end{enumerate}
+
+% Furthermore, the measurement capability of a qubit can be ;``demolition'' or ``non-demolition'' depending if the measurement changes the quantum state or not, but does not change the state of neighboring qubits, even if they perform operations in parallel.
+
+% The Hamiltonian, from classical mechanics, is the function that represents the total energy of a system, which is usually its kinetic energy plus its potential energy. In quantum mechanics, the hamiltonian is the Hermitian operator(as we know these matrices have real eigenvalues) that determines the time evolution of the system and whose eigenvalues correspond to the possible energy levels of the same.
+% It is important to note that the possibility of a quantum system assuming only discrete values of energy by quantum mechanics does not imply that the number of energies is finite. Indeed, the discrete or continuous nature of the energy spectrum depends on the specific properties of the system under consideration.
+
+% There are quantum systems that have a discrete energy spectrum, which means that there are only certain allowable values of energy that the system can have. A classic example is the quantum harmonic oscillator, in which energy is quantized in integer multiples of a specific quantity, known as energy quantum. In this case, the energy spectrum is discrete but infinite, as there are infinitely many allowed values of energy, in other words, this means that the Hamiltonian will not necessarily have a finite number of eigenstates, after all, the quantum states are found in Hilbert space, which in turn is an infinite complex vector space with inner product. For the case of a measure of infinite and non-degenerate eigenstates, according to the 4th postulate of quantum mechanics, the probability of obtaining values between x and x+dx is given by: \(dP(x) = |\braket{x}{\psi}|^{2}dx\). The Hamiltonian is usually written as:
+
+% \begin{equation}
+%   \begin{aligned}\label{eq:3}
+%     H(p, x) = \frac{p^2}{2m} + V(x)
+%   \end{aligned}
+% \end{equation}
+
+% When we transfer the notions to quantum mechanics we are no longer dealing with scalars, but with the operators referring to each magnitude, usually in the case of the Hamiltonian, in terms of momentum and position. So the Hamiltonian operator would be:
+
+% \begin{equation}
+%   \begin{aligned}\label{eq:4}
+%     \hat{H}(\hat{p}, \hat{x}) = \frac{\hat{p}^2}{2m} + V(\hat{x})
+%   \end{aligned}
+% \end{equation}
+
+% Now, let's use Schrodinger's equation and the equation above to obtain a literal expression that takes into account the quantization of magnitudes and that now the Hamiltonian is an operator. So we have: \(i\hbar\frac{\partial \ket{\psi}}{\partial t} = \frac{\hat{p}^2}{2m} + V(\hat{x})\ket{\psi}\), now let's discretize the operation and determine the result of the momentum and position operators acting on the wave function. \(\psi(x) = \bra{x}\ket{\psi}\) and then \(\hat{x}\psi(x) = \bra{x}\hat{x}\ket{\psi}\). With \(\hat{x}\ket{\psi} = \int{\bra{x}\hat{x}\psi(x^{'})\ket{x^{'}}dx^{'}}\) Finally resulting in:
+
+% \begin{equation}
+%   \begin{aligned}\label{eq:5}
+%     \hat{x}\psi(x) = x\psi(x) = x\braket{x}{\psi}
+%   \end{aligned}
+% \end{equation}
+
+% Now applying the same reasoning to the momentum operator \(\hat{p}\psi(x) = \bra{x}\hat{p}\ket{\psi}\) how we know \(\braket{p}{x} = \frac{e^{\frac{-ipx}{\hbar}}}{\sqrt{2\pi}}\) \(\hat{p}\psi(x) = \int{\psi(p)\bra{x}\hat{p}\ket{p}dp}\)
+% \(\hat{p}\ket{p} = p\ket{p}\). Finally resulting in:
+
+% \begin{equation}
+%   \begin{aligned}\label{eq:6}
+%     \hat{p}\psi(x) = -i\hbar\frac{\partial\psi(x)}{\partial x}
+%   \end{aligned}
+% \end{equation}
+
+% Putting these results into the Schrodinger equation we get:
+
+% \begin{equation}
+%   \begin{aligned}\label{eq:7}
+%     \frac{-\hbar^{2}}{2m}\frac{\partial^{2}\psi}{\partial x^{2}} + V(x)\psi = i\hbar\frac{\partial \psi}{\partial t}
+%   \end{aligned}
+% \end{equation}
+
+% Moving on for a more practical example, let's consider that the system that represents our qubits are the two states of a spin 1/2 produced of an electron produced by a magnetic field in the z direction, the states \(\ket{\uparrow}\) and \(\ket{\downarrow}\), considering the results of the Stern-Gerlach experiment, we know that we can receive \(+\frac{\hbar}{2}\)  either \(-\frac{\hbar}{2}\) as result of measurement. The first step is to determine the total energy of the system, which in this case will be given by the directional energy of the magnetic field in the \(\hat{z}\) direction. So to begin with, let's deduce the classical case and then perform the first quantization. The first quantization is based on the transformation of a model or theory of classical mechanics to the equivalent in quantum mechanics and basically consists of passing the magnitudes involved to Hermitian operators, respecting the commutation between them.\\
+% So the angular momentum of a eletron in orbit is given by \(\Vec{L} = mvR\hat{z}\)  the magnetic moment is \(\vec{M} = IA\hat{z}\)  which is equal to \(\vec{M} = (\frac{qv}{2\pi R}\pi R^{2})\hat{z} = \frac{qmvR}{2m}\hat{z} = \frac{q}{2m}\Vec{L}\) . Therefore the total energy of the system (and hamiltonian function) is given by classical mechanics is given by:
+
+% \begin{equation}
+%   \begin{aligned}\label{eq:8}
+%     U = -\Vec{M}\cdot\vec{B}
+%   \end{aligned}
+% \end{equation}
+
+\section{Photonic model}
+\label{cap:photonic}
+The utilization of photons as qubits offers promising prospects due to their chargeless nature and weak interaction with other photons and matter in general. This characteristic sugests a certain reliability to computations carried out with photons, as their susceptibility to decoherence is comparatively low compared to other particles.
+
+Let us envision an electromagnetic cavity wherein discrete energy units represent the presence of individual photons. Within this framework, the cavity can harbor a superposition of zero or one photon, serving as formidable candidates for our computational basis states \(\ket{0}\) and \(\ket{1}\). The quantum mechanical model of a cavity mode of electromagnetic radiation incorporates the time evolution of a harmonic oscillator. To describe the system's dynamics, we will initially explore the classical determination of the total energy of the system and subsequently deduce the Hamiltonian that characterizes it.
 
 
-So now let's summarize some prerequisites to do some reliable quantum computation in real quantum states. First of all, the first requirement tells us that we need a scalable physical system with well characterized qubits, otherwise means that we need some quantum two-level system to form our computational basis \(\ket{0}\) and \(\ket{1}\), some examples of real quantum systems that can represent a qubit are the vertical and horizontal polarization of a single photon, the two states of a spin 1/2 particle traditionally labeled as spin up and spin down, the two hyperfine levels of the ground state of the neutral hydrogen atom. Furthermore, when we call some qubit system well characterized we mean that we must know the internal Hamiltonian which is related to the total energy associated with the system and tell us how this system evolves over the time through the Schrödinger's equation:
-
-\begin{equation}
-  \begin{aligned}\label{eq:1}
-    i\hbar\frac{\partial \ket{\psi}}{\partial t} = \hat{H}\ket{\psi}
-  \end{aligned}
-\end{equation}
-
-So if we consider the trivial case where the eigenstates of \(\ket{\psi}\) are also eigenstates of the Hamiltonian operator (which in this case don't fluctuate over time), we can write the state like \(\ket{\psi(t)} = \sum{\alpha_i(t)\ket{i}}\) and therefore considering \(\lambda_i\) the eigenvalues of \(\hat{H}\)  by the Schrodinger equation we have \(\sum{(\alpha_i(t)\lambda_i - i\hbar\frac{d\alpha_i(t)}{dt})\ket{i}} = 0\), solving the differential equation we finally get:
-
-\begin{equation}
-  \begin{aligned}\label{eq:2}
-    \alpha_i(t) = \alpha_i(0)e^{-\frac{i\lambda_i t}{\hbar}}
-  \end{aligned}
-\end{equation}
-
-Knowing that quantum gates are simply unitary transformations, to have a universal set of quantum gates using real quantum systems we need to build some unitarys like \(U_1 = e^{\frac{iH_1t}{\hbar}}, U_2 = e^{\frac{iH_2t}{\hbar}}\). So to perform some sequence of transformations the quantum computer need to ``turn on'' \(H_1\) from 0 to t and then turn off \(H_1\) and turn on \(H_2\) from t to 2t.
-Inside a classical computer the state of a bit is defined by a pulse signal of a square wave, it is basically a boolean signal of whether current is flowing or not. An example is: if the signal is 5V represent it as bit 1, if it is 0V represent it as bit 0, these signals are updated according to the ``clock time'' of the computer, given by the frequency of the processor. When we go to the quantum world things change of situation, now it is no longer a control variable like a pulse, quantum states have assertive time evolution and therefore can't be idle for a long time before executing an operation. The only way to generate multiple states when we need like we did in classical computers is to turn on and off the interaction smoothly and slowly enough that an adiabatic approximation is accurate. Out of that, quantum gates have errors inherent to their implementations, be them systematic or random, but fortunately it have be shown that if the decoherence time of the quantum system that represents a qubit is \(10^4\) - \(10^5\) times the ``clock time'' of the quantum computer some error correction code can succeed in return the required state with great fidelity. Basically, what error correction tries to do is to identify everything that is the result of errors in a subspace orthogonal to the subspace of the ``code'' but all this has a price, and as John Preskill argues in his article ``Reliable Quantum Computers'' outlining some laws for fault-tolerant computation, we can't use the same qubit twice to handle the error, after all if there was an error in this handling it would propagate indefinitely, so for each qubit used in the operations, we would have to have an ancillary. Also he claims some criterias to fault-tolerant computation, they are:\\
-
-\begin{enumerate}
-  \item \emph{Don't use the same bit twice}
-  \item \emph{The ancilla must be prepared properly, so that the fault-tolerant syndrome
-          measurement diagnoses the errors without spoiling the coherence of the data}
-  \item \emph{Copy the
-          errors, not the data}
-  \item \emph{Verify when you encode a known quantum state}
-  \item \emph{Repeat operations}
-  \item \emph{Use the right code}
-\end{enumerate}
-
-Furthermore, the measurement capability of a qubit can be ;``demolition'' or ``non-demolition'' depending if the measurement changes the quantum state or not, but does not change the state of neighboring qubits, even if they perform operations in parallel.
-
-The Hamiltonian, from classical mechanics, is the function that represents the total energy of a system, which is usually its kinetic energy plus its potential energy. In quantum mechanics, the hamiltonian is the Hermitian operator(as we know these matrices have real eigenvalues) that determines the time evolution of the system and whose eigenvalues correspond to the possible energy levels of the same.
-It is important to note that the possibility of a quantum system assuming only discrete values of energy by quantum mechanics does not imply that the number of energies is finite. Indeed, the discrete or continuous nature of the energy spectrum depends on the specific properties of the system under consideration.
-
-There are quantum systems that have a discrete energy spectrum, which means that there are only certain allowable values of energy that the system can have. A classic example is the quantum harmonic oscillator, in which energy is quantized in integer multiples of a specific quantity, known as energy quantum. In this case, the energy spectrum is discrete but infinite, as there are infinitely many allowed values of energy, in other words, this means that the Hamiltonian will not necessarily have a finite number of eigenstates, after all, the quantum states are found in Hilbert space, which in turn is an infinite complex vector space with inner product. For the case of a measure of infinite and non-degenerate eigenstates, according to the 4th postulate of quantum mechanics, the probability of obtaining values between x and x+dx is given by: \(dP(x) = |\braket{x}{\psi}|^{2}dx\). The Hamiltonian is usually written as:
-
-\begin{equation}
-  \begin{aligned}\label{eq:3}
-    H(p, x) = \frac{p^2}{2m} + V(x)
-  \end{aligned}
-\end{equation}
-
-When we transfer the notions to quantum mechanics we are no longer dealing with scalars, but with the operators referring to each magnitude, usually in the case of the Hamiltonian, in terms of momentum and position. So the Hamiltonian operator would be:
-
-\begin{equation}
-  \begin{aligned}\label{eq:4}
-    \hat{H}(\hat{p}, \hat{x}) = \frac{\hat{p}^2}{2m} + V(\hat{x})
-  \end{aligned}
-\end{equation}
-
-Now, let's use Schrodinger's equation and the equation above to obtain a literal expression that takes into account the quantization of magnitudes and that now the Hamiltonian is an operator. So we have: \(i\hbar\frac{\partial \ket{\psi}}{\partial t} = \frac{\hat{p}^2}{2m} + V(\hat{x})\ket{\psi}\), now let's discretize the operation and determine the result of the momentum and position operators acting on the wave function. \(\psi(x) = \bra{x}\ket{\psi}\) and then \(\hat{x}\psi(x) = \bra{x}\hat{x}\ket{\psi}\). With \(\hat{x}\ket{\psi} = \int{\bra{x}\hat{x}\psi(x^{'})\ket{x^{'}}dx^{'}}\) Finally resulting in:
-
-\begin{equation}
-  \begin{aligned}\label{eq:5}
-    \hat{x}\psi(x) = x\psi(x) = x\braket{x}{\psi}
-  \end{aligned}
-\end{equation}
-
-Now applying the same reasoning to the momentum operator \(\hat{p}\psi(x) = \bra{x}\hat{p}\ket{\psi}\) how we know \(\braket{p}{x} = \frac{e^{\frac{-ipx}{\hbar}}}{\sqrt{2\pi}}\) \(\hat{p}\psi(x) = \int{\psi(p)\bra{x}\hat{p}\ket{p}dp}\)
-\(\hat{p}\ket{p} = p\ket{p}\). Finally resulting in:
-
-\begin{equation}
-  \begin{aligned}\label{eq:6}
-    \hat{p}\psi(x) = -i\hbar\frac{\partial\psi(x)}{\partial x}
-  \end{aligned}
-\end{equation}
-
-Putting these results into the Schrodinger equation we get:
-
-\begin{equation}
-  \begin{aligned}\label{eq:7}
-    \frac{-\hbar^{2}}{2m}\frac{\partial^{2}\psi}{\partial x^{2}} + V(x)\psi = i\hbar\frac{\partial \psi}{\partial t}
-  \end{aligned}
-\end{equation}
-
-Moving on for a more practical example, let's consider that the system that represents our qubits are the two states of a spin 1/2 produced of an electron produced by a magnetic field in the z direction, the states \(\ket{\uparrow}\) and \(\ket{\downarrow}\), considering the results of the Stern-Gerlach experiment, we know that we can receive \(+\frac{\hbar}{2}\)  either \(-\frac{\hbar}{2}\) as result of measurement. The first step is to determine the total energy of the system, which in this case will be given by the directional energy of the magnetic field in the \(\hat{z}\) direction. So to begin with, let's deduce the classical case and then perform the first quantization. The first quantization is based on the transformation of a model or theory of classical mechanics to the equivalent in quantum mechanics and basically consists of passing the magnitudes involved to Hermitian operators, respecting the commutation between them.\\
-So the angular momentum of a eletron in orbit is given by \(\Vec{L} = mvR\hat{z}\)  the magnetic moment is \(\vec{M} = IA\hat{z}\)  which is equal to \(\vec{M} = (\frac{qv}{2\pi R}\pi R^{2})\hat{z} = \frac{qmvR}{2m}\hat{z} = \frac{q}{2m}\Vec{L}\) . Therefore the total energy of the system (and hamiltonian function) is given by classical mechanics is given by:
+We know that the resultant force in a harmonic system is of the type \(F = -kx\) using Newton's second law, we have \(m\frac{d^2x}{dt^2} = -kx\) passing all terms to the left and dividing by m we have \(\frac{d^2x}{dt^2} + \frac{k}{m}x = 0\). Now let \(\omega_0^{2} = \frac{k}{m}\), knowing that the elastic potential energy of a system is given by the equation \(V(x) = \frac{kx^2}{2}\) so in terms of \(\omega_0^{2}\) we have \(\frac{m\omega_0^{2}}{2}x^2\). The total energy of the system will then be the sum of the kinetic energy and the elastic potential energy, so the Hamiltonian function is:
 
 \begin{equation}
   \begin{aligned}\label{eq:8}
-    U = -\Vec{M}\cdot\vec{B}
+    H = E_{total} = \frac{p^2}{2m} + \frac{m\omega_0^{2}}{2}x^2
   \end{aligned}
 \end{equation}
 
-\section{Photonic Model}
+
+Now we are going to carry out the first quantization of the theory, that is, promote the quantities involved to operators respecting the commutation between them:
+
+\begin{equation}
+  \begin{aligned}\label{eq:9}
+    \hat{H} = \frac{\hat{p}^2}{2m} + \frac{m\omega_0^{2}}{2}\hat{x}^2
+  \end{aligned}
+\end{equation}
+
+
+Rearranging the equation in the way and putting \(\hbar\) in evidence \(\hat{H} = \frac{\hbar\omega_0}{2}(\frac{\hat{p}^2}{m\hbar\omega_0} + \frac{m\omega\hat{x}^2}{\hbar})\), defining two new operators as \(\hat{P} = \sqrt{\frac{1}{m\hbar\omega_0}}\hat{p}\)  and \(\hat{X} = \sqrt{\frac{m\omega_0}{\hbar}}\hat{x}\), we get: \(\frac{\hbar\omega_0}{2}(\hat{P}^2 + \hat{X}^2) = \frac{\hbar\omega_0}{2}((\hat{X} + i\hat{P})(\hat{X} - i\hat{P}) + i\hat{X}\hat{P} - i\hat{P}\hat{X})\). What do we gain by writing like this? To know this just note that \(\hat{X}\hat{P} - \hat{P}\hat{X}\) is the commutator between \(\hat{X}\) and \(\hat{P}\), \([\hat{X}, \hat{P}]\) which is equal to \(\sqrt{\frac{m\omega_0}{\hbar}\frac{1}{m\omega_0\hbar}}[\hat{x}, \hat{p}]\). Now notice that the commutator between momentum and position is well known \([\hat{p}, \hat{x}] = i\hbar \). Substituting these relations in the equations we arrive at the following Hamiltonian expression \(\hat{H} = \hbar\omega_0(\frac{\hat{X} + i\hat{P}}{\sqrt{2}}\frac{\hat{X}-i\hat{P}}{\sqrt{2}} - \frac{1}{2})\). Now notice that in \(\frac{\hat{X} + i\hat{P}}{\sqrt{2}}\), \(\hat{X}\)  and \(\hat{P}\) are hermitian as we know \(\hat{x}\) and \(\hat{p}\) must be hermitian as discussed in the introduction, so we can define \(\hat{\alpha} = \frac{\hat{X} + i\hat{P}}{\sqrt{2}}\) and \(\hat{\alpha}^{\dag}\) would be \(\frac{\hat{X} - i\hat{P}}{\sqrt{2}}\). resulting in:
+
+\begin{equation}
+  \begin{aligned}\label{eq:10}
+    \hat{H} = \hbar\omega_0(\hat{\alpha}\hat{\alpha}^{\dag} - \frac{1}{2})
+  \end{aligned}
+\end{equation}
+
+
+Notice that the second term $\frac{\hbar\omega_0}{2}$ is actually the called zero point energy, note that it does not depend on the position or momentum operators, being a constant that only describes the system's ground state of energy and only contributes with an unobservable overall phase factor, which can be disregarded for our present purpose. Finally reducing our Hamiltonian to:
+
+\begin{equation}
+  \begin{aligned}\label{eq:11}
+    \hat{H} = \hbar\omega_0\hat{\alpha}\hat{\alpha}^{\dag}
+  \end{aligned}
+\end{equation}
+
+And as we show in equation 2, the time evolution will be given by:
+
+\begin{equation}
+  \begin{aligned}\label{eq:12}
+    \ket{\psi(t)} = \ket{\psi(0)}e^{\frac{-iHt}{\hbar}}
+  \end{aligned}
+\end{equation}
+
+Now we will show some properties of solutions of the quantum harmonic oscillator, first of all let's show that all the possible energy values for \(\hat{H}\) are positive. To show this let's remember that \(\hat{H} = \hbar\omega_0\hat{\alpha}\hat{\alpha}^{\dag}\) implies that \(\hat{H}\) and \(\hat{\alpha}\hat{\alpha}^{\dag}\) have the same set of eigenvectors so \(\hat{\alpha}\hat{\alpha}^{\dag}\ket{\psi} = \lambda_i\ket{\psi}\) and \(\hat{H}\ket{\psi} = \hbar\omega_0\lambda_i\ket{\psi}\). Consider the norm squared of the following state \(||\hat{\alpha}\ket{\psi}||^2\), this must be greater or equal 0 by definition of norm, let's calculate it: \(||\hat{\alpha}\ket{\psi}||^2 = \bra{\psi}\hat{\alpha}\hat{\alpha}^{\dag}\ket{\psi}\) using that \(\hat{\alpha}\hat{\alpha}^{\dag}\ket{\psi} = \lambda_i\ket{\psi}\) we have \(\lambda_i\bra{\psi}\ket{\psi} \geq 0\) as \(\ket{\psi}\) is part of orthonormal we have \(\lambda_i \geq 0\) and finally:
+
+\begin{equation}
+  \begin{aligned}\label{eq:13}
+    \hbar\omega_0\lambda_i \geq 0
+  \end{aligned}
+\end{equation}
+
+The next property we want to prove is that \(\hat{\alpha}\hat{\alpha}^{\dag}\hat{\alpha}\ket{\psi} = (\lambda-1)\hat{\alpha}\ket{\psi}\) That is, we want to show that \(\alpha\ket{\psi}\)  is eigenvector of \(\hat{\alpha}\hat{\alpha}^{\dag}\)  with eigenvalue \(\lambda-1\). For this, let's do the commutator between \([\hat{\alpha}\hat{\alpha}^{\dag}, \hat{\alpha}]\)  which is equal to \(\hat{\alpha}^{\dag}[\hat{\alpha}, \hat{\alpha}] + [\hat{\alpha}^{\dag}, \hat{\alpha}]\hat{\alpha} = -\hat{\alpha}\).
+
+then we have the following relationship:
+\begin{equation}
+  \begin{aligned}\label{eq:14}
+    \ket{n} = \frac{(\hat{a}^{\dag})^n}{\sqrt{n!}}\ket{0}
+  \end{aligned}
+\end{equation}
+
+
+Now that we have outlined the theory behind the Hamiltonian and time evolution of the model, we are going to use what is known as a coherent state, which is a quantum state defined as the only eigenstate of the annihilation operator \(\hat{a}\) to be the state of the photons. This formula means that a coherent state remains unchanged by the annihilation of field excitation or, say, a particle
+
+\(\ket{\beta} = \sum_{n=0}{C_n \ket{n}}\) applying the annihilation operator we get \(\hat{a}\ket{\beta} = \hat{a}(\sum_{n=0}{C_n \ket{n}})\) using the definition of \(\ket{n}\) given by Equation~\ref{eq:14} we get the state:
+
+\begin{equation}
+  \begin{aligned}\label{eq:15}
+    \ket{\beta} = e^{\frac{-|\beta|^2}{2}}\sum_{n=0}^{\infty}{\frac{\beta^n}{\sqrt{n!}}\ket{0}}
+  \end{aligned}
+\end{equation}
+
 
 \section{Ion Trap}
+\label{cap:ion}
 The study of atomic structure and its associated energy levels provides great insight into fundamental quantum properties that can be harnessed to realize actual qubits.
 
 \subsection{Apparatus Description}
+\label{sec:apparatus_description}
 
 To harness the quantum effects of a charged atom and enable precise control over its quantum states, it is essential to decouple the atom from any external influences. This necessitates the development of a method to confine the ion within a vacuum environment. One widely utilized approach involves the use of an electromagnetic field source to immobilize the charged particle. However, the utilization of a static electric field that can trap the particle in all directions is prohibited by Earnshaw's theorem \autocite{jones_1980_earnshaws}.
 
@@ -159,6 +271,24 @@ The fundamental principle underlying the operation of a Paul trap relies on the 
 There are usualy two types of Paul traps configuration, one with layout of quadrupolar electrodes that traps the ion in add three dimensions (point traps), and one with two RF trapping plus and a static eletric field that traps the ion in a plane (linear traps).
 The point traps have only one point where the field is zero, thefore for multiple ions to be trapped in the same trap they need to be cooled to a point where they are almost still, or it leads to lost of fidelity.
 Linear traps in general have a line where the field is zero, therefore it is possible to trap multiple ions in the same trap, and trought variation on the static field, ions can be moved and rearranged in the trap.
+
+Figure~\ref{fig:traps} shows different geometries of Paul traps. A general description of the ion movement \autocite{leibfried_2003_quantum} can be followed from the assumption that the potential is quadratic near the trap center. The ion is then confined to a region of space where the potential is approximately harmonic. So describing the movement across each axis can be given by the Hamiltonian:
+
+\begin{equation}
+  \begin{aligned}\label{eq:ionhamilt}
+    \hat{H}_t(t) = \frac{\hat{p}^{2}}{2m_I} + \frac{|e|}{2}[\Phi_{\mathrm{dc}}'' + \Phi''_{\mathrm{rf}}(\Omega_{\mathrm{rf}}t)]\hat{x}^2
+  \end{aligned}
+\end{equation}
+
+\noindent In the limit when the parameter \( q_x = \frac{2|e|\Phi''_{\mathrm{rf}}}{m_I \Omega^2_{\mathrm{rf} }} \ll 1\), only a few terms are relevant, and the equations of position and momentum operators follows that of a harmonic oscillator. This analysis can be extended to the other axis, and the motional modes are orthogonal. For multiple ions in harmonic traps it becomes more complex with aditional modes of motion, but for suficient low temperatures, the ions are confined to the orthogonal harmonic modes is a good aproximation.
+So with energy levels equally spaced with an frequency of \(\omega_t\), those eigenstates represent {\it center of mass} modes, and the vibrational energy of \(\hbar\omega_t\) is called a {\it phonon}.
+
+Within the domain of ion traps, numerous sources of noise pose potential disruptions. Proximity to fluctuating electric fields, for instance, can yield unanticipated transitions in the motional state, as the electrodes fall short of ideal source conditions. Although these influences may appear inconsequential individually, their cumulative impact can impinge upon the fidelity of gate operations over time. Fortunately, most sources of noise can be managed to avert interference within the required operational time frame. By virtue of the harmonic approximation, the ions exhibit remarkable selectivity toward the frequency driving state transitions, rendering the system predominantly susceptible to noises that align closely with the motional modes frequencies.
+Discussion around the many sources of noise can be found in \autocite{brownnutt_2015_iontrap}.
+
+Given the criticality of harmonicity in bolstering the system's resilience against noise, it becomes imperative for the ions to attain a state of significant cooling to validate the harmonic approximation. This cooling mechanism is achieved through Doppler cooling. By subjecting the ion to illumination from a laser operating at a frequency slightly below the ion's resonant frequency, the ion absorbs photons and subsequently emits them in random directions, leading to a loss of momentum and energy. This iterative process continues until the ion reaches a desired level of coolness.
+
+\noindent
 
 
 
@@ -174,11 +304,154 @@ Linear traps in general have a line where the field is zero, therefore it is pos
   \includegraphics[height=4cm]{figs/fig1/p5_2.png}
   \includegraphics[height=4cm]{figs/fig1/p5_3.png}
 
-  \caption{(Reproduced from \autocite{brownnutt_2015_iontrap}) (a) The fundamental concept of RF trapping involves the generation of quadrupolar fields that oscillate at an RF frequency. This is achieved by employing a set of (parabolic) electrodes. (b) The simplest version of the basic RF trap exhibits cylindrical symmetry and is known as the ``ring and endcap'' point-trap configuration. (c) Another simple variation of the RF trap is the translationally symmetric design, which forms a quadrupole mass filter and can be utilized as a linear trap. (d,e) Additional configurations that share the same topology as the geometry shown in (b) but exhibit slight deformations. (f) Similar topologically equivalent deformations can be applied to the geometry shown in (c), where extra endcap electrodes are incorporated to create a four-rod, linear trap. (g) By manipulating the four-rod trap in (f), it is possible to arrange all the electrodes in a single plane, resulting in a linear ``surface-electrode trap.'' (h) In a linear trap, a subset of the electrodes (depicted here using a surface-electrode trap, but applicable to other linear trap geometries as well, such as the one shown in (f)) can be segmented to enable trapping in multiple zones along the axial direction.}
+  \caption{(Reproduced from \autocite{brownnutt_2015_iontrap}) (a) The fundamental concept of RF trapping involves the generation of quadrupolar fields that oscillate at an RF frequency. This is achieved by employing a set of (parabolic) electrodes. (b) The simplest version of the basic RF trap exhibits cylindrical symmetry and is known as the ``ring and endcap'' point-trap configuration. (c) Another simple variation of the RF trap is the translationally symmetric design, which forms a quadrupole mass filter and can be utilized as a linear trap. (d,e) Additional configurations that share the same topology as the geometry shown in (b) but exhibit slight deformations. (f) Similar topologically equivalent deformations can be applied to the geometry shown in (c), where extra endcap electrodes are incorporated to create a four-rod, linear trap. (g) By manipulating the four-rod trap in (f), it is possible to arrange all the electrodes in a single plane, resulting in a linear ``surface-electrode trap.'' (h) In a linear trap, a subset of the electrodes (depicted here using a surface-electrode trap, but applicable to other linear trap geometries as well, such as the one shown in (f)) can be segmented to enable trapping in multiple zones along the axial direction.}\label{fig:traps}
 \end{figure*}
 
+\subsection{Atomic Structure}
+
+Trapped ions, as a means of qubit representation, rely on the utilization of internal electronic states of the ion to embody the qubit states \(\ket{0}\) and \(\ket{1}\). Trapped-ion qubits can be broadly classified into four distinct categories: hyperfine qubits, where the qubit states emerge from hyperfine states of the ion, distinguished by an energy splitting in the order of gigahertz; Zeeman qubits, where the qubit states stem from magnetic sublevels, segregated by an  applied field, typically exhibiting frequencies in the tens of megahertz range; fine structure qubits, where the qubit states inhabit fine structure levels, characterized by separations on the order of tens of terahertz; and optical qubits, where the qubit states manifest through an optical transition, generally featuring frequencies in the hundreds of terahertz.~\autocite{mattos_2023_estudo}
+
+The origin of these states can be traced back to the combination of the total angular momentum J, which comprises the electron spin S and the orbital angular momentum L. This phenomenon finds comprehensive explanation in physics through the concept known as the {\it addition of angular momenta.} This theoretical framework offers a systematic approach to deduce the atomic structure by amalgamating the individual angular momenta Hamiltonians.
+
+The current objective of our study does not involve the selection of a specific system; instead, it aims to present a comprehensive overview of the field in a more generalized manner. Hence, we shall refrain from delving into the intricate details of the atomic structure pertaining to any particular system. Rather, our intention is to provide a broader perspective on the subject. The choice of eigenstates for qubit states, while system-dependent, typically centers around the lowest non-degenerate energy levels, enabling individual addressing through the utilization of lasers.
+
+\subsection{State preparation}
+
+In trapped ion systems, the preparation of the ion register's internal state and motional state plays a crucial role in enabling subsequent quantum operations. High-fidelity initial state preparation must be performed after each experimental realization. Various operations, such as Doppler cooling and state measurement, can result in ions occupying internal states beyond the qubit subspace. Thus, optical pumping is employed to either prepare the desired initial state or an intermediate state that can be coupled to the initial state with high fidelity. Optical pumping schemes utilize photon absorption and emission selection rules to effectively confine quantum state amplitudes to a single state through repeated absorption and emission cycles. Although off-resonant excitation and residual branching can limit state preparation fidelity, errors on the scale of \(10^{-4}\) can be achieved~\autocite{harty_2014_highfidelity}.
+
+Controlling the motional state of the ion register is also crucial. Laser-based Doppler cooling is utilized to rapidly reduce the ion temperature to millikelvin scales. However, for trapping frequencies typically employed in quantum processing experiments, this cooling method leaves the ions in a thermal distribution spanning multiple motional states. Resolved sideband cooling is an efficient technique for further reducing the motional state occupation of the ion register when addressing small numbers of ions or controlling a few motional modes~\autocite{monroe_1995_demonstration}. By absorbing photons tuned to specific motional modes' narrow red sideband transitions, the state occupation of those modes is reduced. Subsequent state quenching and spontaneous decay maintain the motional state in the Lamb-Dicke regime and permit the cooling cycle to repeat. However, resolved sideband cooling can become slow and impractical for large ion chains with numerous motional modes due to the need for repeated resonant addressing of weak transitions.
+
+An alternative cooling approach involves employing electromagnetic induced transparency (EIT) to alter the ion register's light absorption profile. By carefully selecting laser frequencies and polarizations, a \( \lambda \)-level scheme can be utilized to inhibit photon scattering on blue sideband transitions and preferentially reduce the motional state occupation. This technique was initially applied to single ions but has been extended to efficiently cool longer chains and simultaneously address multiple motional modes~\autocite{lechner_2016_electromagneticallyinducedtransparency}.
+
+\subsection{Quantum Gates}
+For a quantum computer to be able to perform useful computations, it must be able to perform a universal set of quantum gates.
+
+Trapped-ion qubits exhibit different types depending on their internal states and transition frequencies. Hyperfine qubits utilize two hyperfine states with gigahertz separations as the \(\ket{0}\) and \(\ket{1}\) states. Single-qubit gates for hyperfine qubits can be performed using microwaves or Raman transitions. On the other hand, optical qubits employ a metastable excited state with optical transition frequencies exceeding 100 terahertz, enabling single-qubit gates with a resonant laser.
+
+Optical qubits typically utilize two internal states separated by an electric quadrupole \(S \to D\)  transition. Although these qubits have longer lifetimes, coherence times are limited by T2 constraints due to laser phase noise and optical path length fluctuations. Despite their potential, optical qubits have not been extensively utilized. However, they hold promise for future quantum computing endeavors, especially with the recent development of millihertz-class lasers for optical clocks.
+
+Hyperfine qubits can be subjected to laser-based gates employing stimulated Raman coupling. This approach involves two laser beams detuned from a dipole-allowed transition and each other by the splitting of the \(\ket{0}\) and \(\ket{1}\) states. The precision control of the difference frequency between the Raman beams allows for coherent operations. Additionally, direct microwave drives at gigahertz transition frequencies can implement gates on hyperfine qubits by coupling to the ion's magnetic dipole. While individual addressability is challenging with microwave radiation, microfabricated chip traps integrated with current-carrying wires enable near-field microwave transitions. By selectively moving ions in and out of microwave zones, gates can be implemented on one ion at a time in a multi-ion system, mitigating crosstalk within the chip's zones.
+
+
+For multiple qubit gates, one widely employed method is the entangling gate devised by Cirac and Zoller (CZ gate)~\autocite{cirac_1995_quantum}. This approach has stood the test of time and continues to serve as the foundation for modern techniques. The CZ gate capitalizes on the collective behavior of ions' shared motional modes, utilizing them as a conduit for transferring quantum information among the qubits.
+
+A sequence of carefully tailored laser pulses or microwave fields is applied to the ions, exploiting their interaction with the electromagnetic field. These external fields induce controlled interactions between the ions' internal states and their shared motional modes.
+As the qubits interact with the motional modes, their internal states become entangled.
+
+\subsection{Sources of noise}
+
+Regarding the sources of noise, numerous elements can influence the efficacy of a trapped-ion quantum computer. As elucidated in Section~\ref{sec:apparatus_description}, there are various factors that contribute to the system's decoherence. A comprehensive exploration of the noise sources in ion-traps can be found in the work by Brownnutt (2015)\autocite{brownnutt_2015_iontrap}, offering valuable insights into this domain.
 
 \section{Solid State: Superconducting Qubits}
+\label{cap:superconductor}
+
+A notable platform for constructing a multi-qubit quantum processor revolves around superconducting qubits. These qubits employ the quantum degrees of freedom found within nanofabricated, anharmonic oscillators built from superconducting circuit components. Div'rging from alternative platforms, wherein quantum information is encoded within natural microscopic quantum systems, superconducting qubits exhibit a macroscopic scale and are lithographically defined.
+
+A striking characteristic of superconducting qubits resides in their energy-level spectra, which are determined by circuit element parameters. This configurability enables the design of ``atom-like'' energy spectra with specific desired properties. Hence, superconducting qubits are frequently hailed as artificial atoms, presenting a diverse parameter space that encompasses a myriad of qubit properties and operational modes. They offer a predictable performance with respect to transition frequencies, anharmonicity, and intricacy, providing a great oportunity to explore qubit implementations.
+
+\subsection{Transmon qubit}
+A quantum system is governed by the Schrödinger equation (postulate ~\ref{post:schroedinger}), which describes the time evolution of the system's state vector. As discussed in Section~\ref{sec:physical_properties}, the Hamiltonian governs the time evolution trough the unitary operator \(U\). So the first step to determine the Hamiltonian is to consider its classical counterpart. We will consider only the time-independent Hamiltonian as it provides a useful enough description of the system.
+
+To understand the dynamics of a superconducting qubit circuit, it is customary to commence with the classical portrayal of a linear LC resonant circuit. Within this configuration, energy undergoes oscillations between electrical energy stored in the capacitor C and magnetic energy stored in the inductor L. For later analogies, we will arbitrarily associate the electrical energy with the ``kinetic energy'' and the magnetic energy with the ``potential energy'' of the oscillator. The energy present in each element at any given moment is contingent upon its current and voltage:
+
+\begin{equation}
+  E(t) = \int_{-\infty}^{t} I(t')V(t')dt'
+\end{equation}
+
+We can represent the circuit elements in terms of a generalized circuit coodinate, the {\it flux}, defined as the time integral of the voltage across the component:
+\begin{equation}
+  \Phi(t) = \int_{-\infty}^{t} V(t')dt'
+\end{equation}
+
+Combining the equations with the relations \( V = \frac{dI}{dt} \) and \( I = C \frac{dV}{dt}\), it is possible to write the energy of the capacitor and inductor in terms of the flux:
+\begin{eqnarray}
+  \mathcal{T}_C = \frac{1}{2}C\dot\Phi^2\label{eq:tc} \\
+  \mathcal{U}_L = \frac{1}{2L}\Phi^2\label{eq:ul}
+\end{eqnarray}
+
+\noindent To find the hamiltonian we can follow the classical mechanics Lagrange-Hamiltonian formulation. The Lagrangian, a key concept in classical mechanics, arises as the discrepancy between the kinetic and potential energy components. Consequently, we can express the Lagrangian using the equations~\ref{eq:tc} and~\ref{eq:ul}.
+
+
+\begin{equation}
+  \mathcal{L} = \mathcal{T}_C - \mathcal{U}_L = \frac{1}{2}C\dot\Phi^2 - \frac{1}{2L}\Phi^2
+\end{equation}
+
+\noindent And we can now derive the Hamiltonian by finding the momentum conjugate to the flux, which is the charge \( Q = C\dot\Phi \). The Hamiltonian is then given by:
+\begin{equation}
+  Q\dot\Phi-\mathcal{L} = \frac{Q^2}{2C} + \frac{\Phi^2}{2L} = \frac{1}{2}CV^2 + \frac{1}{2}LI^2
+\end{equation}
+
+\noindent This Hamiltonian is analogous as the one for a harmonic oscillator, with mass \(C\) and resonant frequency \(\frac{1}{\sqrt{LC} }\).
+
+To probmote charge and flux to quantum operators, we can use the commutation relation \( [\hat\Phi, \hat Q] = i\hbar \). In a LC circuit, both the capacitor and inductor are linear components, so the Hamiltonian is then given by:
+\begin{equation}
+  H = 4E_C n^2 = \frac{1}{2}E_L\phi^2
+\end{equation}
+\noindent where \(\phi = 2\pi\frac{\Phi}{\Phi_0}\) is the reduced flux, \(n = \frac{Q}{2e}\) is the reduced charge, \(E_C = \frac{e^2}{2C}\) is the charging energy, \(E_L = \frac{\Phi_0^2}{4\pi^2L}\) is the inductive energy, and \(\Phi_0 = \frac{h}{2e}\) is the superconducting magnetic flux quantum.
+
+This Hamiltonian is identical to the quantum harmonic oscilator, and can be written in terms of the raising and lowering operators \(a^\dagger\) and \(a\):
+\begin{equation}
+  H = \hbar\omega(a^\dagger a + \frac{1}{2})
+\end{equation}
+\noindent Aditional discussion over the correspondence can be found at \autocite{krantz_2019_a}, but we will limit ourselves to this brief overview.
+
+\begin{figure}[t]
+  \centering
+  \includegraphics[width=0.75\linewidth]{figs/circuits.pdf}
+  \caption{(Reproduced from \autocite{krantz_2019_a})
+    (a) Illustrated here is the circuit diagram for a parallel LC-oscillator, also known as a quantum harmonic oscillator (QHO). The inductance \(L\) and capacitance \(C\) are connected in parallel. The superconducting phase on the island is represented as \( \phi \) , with reference to ground as the zero point.
+    (b) The energy potential graph depicts the QHO, wherein the energy levels are uniformly spaced, separated by approximately \(\omega_r\).
+    (c) Shown is a Josephson qubit circuit, featuring a nonlinear inductance \(L_J\)  (depicted within the dashed orange box) that is coupled with a capacitance \(C_S\).
+    (d) The Josephson inductance modifies the quadratic energy potential (illustrated by the dashed red curve) into a sinusoidal shape (depicted by the solid blue curve). As a result, the energy levels become non-uniformly spaced. This characteristic enables the isolation of the two lowest energy levels, denoted as \(\ket{0}\) and \(\ket{1}\), forming a computational subspace. The energy separation between these levels is approximately \(\omega_{01}\), distinct from \(\omega_{12}\).}
+  \label{fig:circuits}
+\end{figure}
+
+One notable aspect to observe here is the linearity exhibited by the quantum harmonic oscillator, as seen if Figure~\ref{fig:circuits}.a. In the case of eigenstates associated with the number operator \((N=a^\dagger a)\), the energy levels of this system are evenly spaced by a factor of \( \hbar\omega \). However, this presents a constraint as we require the ability to manipulate single qubits with different transition frequencies.
+
+To overcome this limitation, we can introduce a anharmonicity (non-linearity) to the system. This can be achieved by incorporating a shunting capacitor in parallel with the Josephson junction~\autocite{josephson_1962_possible}\autocite{josephson_1964_coupled}. This particular configuration gives rise to what is known as a {\it transmon} qubit, which is governed by the modified Hamiltonian:
+
+\begin{equation}
+  H = 4E_C n^2 - E_J cos(\phi)
+\end{equation}
+
+\noindent where \(E_C = \frac{e^2}{2C_\Sigma}\) and \(C_\Sigma = C_S+C_J\). So with the Josephson junction, the energy potential is no longer quadratic, but rather sinusoidal, as seen in Figure~\ref{fig:circuits}.d. This results in a non-uniform spacing between energy levels, which allows for the isolation of the two lowest energy levels, forming a computational subspace. The energy separation between these levels is approximately \(\omega_{01}\), distinct from \(\omega_{12}\), thus not causing unwanted transitions. We now have access to a individually addressable two-level quantum system.
+
+We will not discuss in details here, but one choice that comes with this system is the \(\frac{E_J}{E_C}\) ratio. There are two regimes to choose, the \(E_J \leq E_C\) or the \(E_J \gg E_C\). The current preferential regime is the later, as it is more robust to charge noise, and has a longer coherence time~\autocite{krantz_2019_a}.
+
+\subsection{Adressing qubits}
+
+In order to implement single-qubit gates, a microwave source, commonly referred to as the "qubit drive," is coupled with the transmon qubit. This coupling exploits the anharmonicity produced by the Josephson junction. For a more in-depth understanding of this particular interaction, details can be found in the references~\autocite{girvin_circuit}\autocite{krantz_2019_a}\autocite{gustavsson_2012_driven}\autocite{bertet_2006_parametric}. However, for the purpose of this overview, we will provide a brief summary of the results.
+
+The driving Hamiltonian for a microwave pulse interacting with a  single superconducting qubit in a frame rotating at the drive frequency \(\omega_q\) is given by:
+
+\begin{equation}
+  \tilde H_d = -\frac{\Omega}{2}V_0 s(t) \begin{pmatrix}
+    0                             & e^{i(\delta\omega t + \phi)} \\
+    e^{-i(\delta\omega t + \phi)} & 0
+  \end{pmatrix}
+\end{equation}
+
+The pulse is then described by the function \(s(t)\), which is the envelope of the pulse, and \(\phi\) is the phase of the pulse. The parameter \(\Omega\) is the Rabi frequency, which is proportional to the amplitude of the pulse. The parameter \(V_0\) is the coupling strength between the qubit and the drive, and is proportional to the amplitude of the drive.
+
+As an example we can imagine a pulse at the quit frequency, so that \(\delta\omega = 0\). In this case, the Hamiltonian becomes:
+
+\begin{equation}
+  \tilde H_d = - \frac{\Omega}{2}V_0 s(t)(I\sigma_s+Q\sigma_y)
+\end{equation}
+
+\noindent showing that an in-phase pulse correspond to a rotation around the x-axis, and a out-of-phase pulse correspond to a rotation around the y-axis.
+
+For transmon-like superconducting qubit architecture, the available two-qubit gates can be broadly classified into two distinct families, as previously discussed. The first family encompasses gates that necessitate local magnetic fields to tune the transition frequency of qubits. On the other hand, the second family comprises all-microwave control gates. However, it is worth noting that there exist hybrid schemes that amalgamate elements from both categories.
+iSWAP gates has been demonstrated to work with a high fidelity~\autocite{sung_2021_realization}, and in combination with another single-qubit gates, it can reproduce a C-NOT, and generate a complete set of universal gates~\autocite{krantz_2019_a}.
+
+\subsection{Sources of noise}
+Various sources of noise can impact the performance and fidelity of superconducting qubits.
+
+Within the surrounding environment, thermal fluctuations manifest as random electromagnetic fields and thermal excitations. These fluctuations introduce noise, leading to energy dissipation and potential errors in the qubit's state.
+
+Superconducting qubits are susceptible to fluctuations in the magnetic flux passing through their loops. These fluctuations arise from interactions between the qubit and its magnetic surroundings, encompassing stray magnetic fields or material defects. Flux noise engenders random variations in the qubit's energy levels, ultimately causing decoherence and errors.
+
+Proximity to charge fluctuations can impact the performance of superconducting qubits. Charge noise emanates from nearby charge traps or impurities within the substrate or dielectric layers. These fluctuations can perturb the qubit's energy levels, thereby introducing errors during qubit operations.
 
 \section{Comparative Analysis}
 
@@ -190,8 +463,8 @@ Linear traps in general have a line where the field is zero, therefore it is pos
 
 \appendix
 
-\section{Example Appendix Section}
+% \section{Example Appendix Section}
 
-Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
+% Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
 
 \end{document}
