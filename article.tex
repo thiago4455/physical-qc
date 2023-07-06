@@ -114,70 +114,6 @@ The performance of a quantum computer is intricately tied to various system prop
 
 These properties are contingent upon the specific physical implementation of the quantum computer. In the next chapters, we will look into implementations centered around photon cavities~\ref{cap:photonic}, trapped ions~\ref{cap:ion}, and superconducting circuits~\ref{cap:superconductor}. Through this exploration, we aim to initiate a discussion regarding the influence of these implementations on the mentioned properties.
 
-% \begin{enumerate}
-%   \item \emph{Do not use the same bit twice}
-%         % \item \emph{The ancilla must be prepared properly, so that the fault-tolerant syndrome measurement diagnoses the errors without spoiling the coherence of the data}
-%   \item \emph{Copy the
-%           errors, not the data}
-%   \item \emph{Verify when you encode a known quantum state}
-%   \item \emph{Repeat operations}
-%   \item \emph{Use the right code}
-% \end{enumerate}
-
-% Furthermore, the measurement capability of a qubit can be ;``demolition'' or ``non-demolition'' depending if the measurement changes the quantum state or not, but does not change the state of neighboring qubits, even if they perform operations in parallel.
-
-% The Hamiltonian, from classical mechanics, is the function that represents the total energy of a system, which is usually its kinetic energy plus its potential energy. In quantum mechanics, the hamiltonian is the Hermitian operator(as we know these matrices have real eigenvalues) that determines the time evolution of the system and whose eigenvalues correspond to the possible energy levels of the same.
-% It is important to note that the possibility of a quantum system assuming only discrete values of energy by quantum mechanics does not imply that the number of energies is finite. Indeed, the discrete or continuous nature of the energy spectrum depends on the specific properties of the system under consideration.
-
-% There are quantum systems that have a discrete energy spectrum, which means that there are only certain allowable values of energy that the system can have. A classic example is the quantum harmonic oscillator, in which energy is quantized in integer multiples of a specific quantity, known as energy quantum. In this case, the energy spectrum is discrete but infinite, as there are infinitely many allowed values of energy, in other words, this means that the Hamiltonian will not necessarily have a finite number of eigenstates, after all, the quantum states are found in Hilbert space, which in turn is an infinite complex vector space with inner product. For the case of a measure of infinite and non-degenerate eigenstates, according to the 4th postulate of quantum mechanics, the probability of obtaining values between x and x+dx is given by: \(dP(x) = |\braket{x}{\psi}|^{2}dx\). The Hamiltonian is usually written as:
-
-% \begin{equation}
-%   \begin{aligned}\label{eq:3}
-%     H(p, x) = \frac{p^2}{2m} + V(x)
-%   \end{aligned}
-% \end{equation}
-
-% When we transfer the notions to quantum mechanics we are no longer dealing with scalars, but with the operators referring to each magnitude, usually in the case of the Hamiltonian, in terms of momentum and position. So the Hamiltonian operator would be:
-
-% \begin{equation}
-%   \begin{aligned}\label{eq:4}
-%     \hat{H}(\hat{p}, \hat{x}) = \frac{\hat{p}^2}{2m} + V(\hat{x})
-%   \end{aligned}
-% \end{equation}
-
-% Now, let's use Schrodinger's equation and the equation above to obtain a literal expression that takes into account the quantization of magnitudes and that now the Hamiltonian is an operator. So we have: \(i\hbar\frac{\partial \ket{\psi}}{\partial t} = \frac{\hat{p}^2}{2m} + V(\hat{x})\ket{\psi}\), now let's discretize the operation and determine the result of the momentum and position operators acting on the wave function. \(\psi(x) = \bra{x}\ket{\psi}\) and then \(\hat{x}\psi(x) = \bra{x}\hat{x}\ket{\psi}\). With \(\hat{x}\ket{\psi} = \int{\bra{x}\hat{x}\psi(x^{'})\ket{x^{'}}dx^{'}}\) Finally resulting in:
-
-% \begin{equation}
-%   \begin{aligned}\label{eq:5}
-%     \hat{x}\psi(x) = x\psi(x) = x\braket{x}{\psi}
-%   \end{aligned}
-% \end{equation}
-
-% Now applying the same reasoning to the momentum operator \(\hat{p}\psi(x) = \bra{x}\hat{p}\ket{\psi}\) how we know \(\braket{p}{x} = \frac{e^{\frac{-ipx}{\hbar}}}{\sqrt{2\pi}}\) \(\hat{p}\psi(x) = \int{\psi(p)\bra{x}\hat{p}\ket{p}dp}\)
-% \(\hat{p}\ket{p} = p\ket{p}\). Finally resulting in:
-
-% \begin{equation}
-%   \begin{aligned}\label{eq:6}
-%     \hat{p}\psi(x) = -i\hbar\frac{\partial\psi(x)}{\partial x}
-%   \end{aligned}
-% \end{equation}
-
-% Putting these results into the Schrodinger equation we get:
-
-% \begin{equation}
-%   \begin{aligned}\label{eq:7}
-%     \frac{-\hbar^{2}}{2m}\frac{\partial^{2}\psi}{\partial x^{2}} + V(x)\psi = i\hbar\frac{\partial \psi}{\partial t}
-%   \end{aligned}
-% \end{equation}
-
-% Moving on for a more practical example, let's consider that the system that represents our qubits are the two states of a spin 1/2 produced of an electron produced by a magnetic field in the z direction, the states \(\ket{\uparrow}\) and \(\ket{\downarrow}\), considering the results of the Stern-Gerlach experiment, we know that we can receive \(+\frac{\hbar}{2}\)  either \(-\frac{\hbar}{2}\) as result of measurement. The first step is to determine the total energy of the system, which in this case will be given by the directional energy of the magnetic field in the \(\hat{z}\) direction. So to begin with, let's deduce the classical case and then perform the first quantization. The first quantization is based on the transformation of a model or theory of classical mechanics to the equivalent in quantum mechanics and basically consists of passing the magnitudes involved to Hermitian operators, respecting the commutation between them.\\
-% So the angular momentum of a eletron in orbit is given by \(\Vec{L} = mvR\hat{z}\)  the magnetic moment is \(\vec{M} = IA\hat{z}\)  which is equal to \(\vec{M} = (\frac{qv}{2\pi R}\pi R^{2})\hat{z} = \frac{qmvR}{2m}\hat{z} = \frac{q}{2m}\Vec{L}\) . Therefore the total energy of the system (and hamiltonian function) is given by classical mechanics is given by:
-
-% \begin{equation}
-%   \begin{aligned}\label{eq:8}
-%     U = -\Vec{M}\cdot\vec{B}
-%   \end{aligned}
-% \end{equation}
 
 \section{Photonic model}
 \label{cap:photonic}
@@ -584,6 +520,39 @@ Proximity to charge fluctuations can impact the performance of superconducting q
 \section{Comparative Analysis}
 \label{sec:comparative}
 
+A comparative analysis of quantum computer architectures plays a crucial role in evaluating and understanding the capabilities and limitations of these systems. Understanding the differences between the available architectures is critical to directing future development and identifying the most promising technologies for practical applications. By far, the superconducting qubit architecture is the predominant and most common architecture of today's quantum computers. This is mainly due to the technological maturity of the area and the in-depth understanding of the properties of superconducting materials. Solid-state physics is an area on the rise and is one of the areas that has grown the most, if not the most, in recent years. We can cite as highlights of the architecture of superconducting qubits the scalability of these systems, that is, the ability to form larger circuits, increase the number of qubits efficiently, generally operates at higher frequencies and work with multi-gates. Devoret, Wallraff and Martinis also highlights some qualities of this architecture in their article ``Superconducting Qubits: A Short Review'':~\autocite{devoret_2004_superconducting}
+
+\begin{enumerate}
+  \item \emph{Coherence quality factors \(Q_\phi = T_\phi\omega_{01}\) can attain at least \(2x10^4\) }
+  \item \emph{Readout and reset fidelity can be greater than 95\%}
+  \item \emph{All states on the Bloch sphere can be addressed}
+  \item \emph{ Spin echo techniques can null out low frequency drift of offset charges}
+  \item \emph{Two qubits can be coupled and RF pulses can implement gate operation.}
+  \item \emph{A qubit can be fabricated using only optical lithography techniques.}
+\end{enumerate}
+
+
+The main rival of the superconducting qubit architecture is certainly the ion trap architecture. Some advantages of ion trap architecture over superconducting qubits is that the ion trap system features superior qubits and reconfigurable connections, the construction and reading of results with greater fidelity. Moving on to a more practical analysis, the experimental results comparing these two models in a research published in 2017(``Experimental comparison of two quantum computing architectures'') pointed to an advantage in favor of the ion trap model, demonstrating superior fidelity in the states and greater probability of success in the implementation of diverse circuits and quantum gates. One of the reasons for this result pointed out in the article is due to the topology of the connections, supporting the idea that quantum computer applications and hardware should be codesigned.~\autocite{linke_2017_experimental}
+
+
+The photonic model, in contrast to the other two, appears little in the realization of well-established quantum computers, some companies that have bet on this architecture for the future are PsiQuantum and Xanadu but today this model is more speculative and a promise for the near future. The reason why the photonic model is currently difficult to perform is because the interaction between photons is very weak and as evidenced by the comparison between ion trap and superconducting qubits the fact that the ion trap was fully-connected was a key factor in its advantage over the superconducting model.
+
+\begin{table}[]
+  \begin{tabular}{lllllll}
+    \multicolumn{1}{c}{\textbf{Connectivity}} & \multicolumn{3}{c}{\textbf{Star shaped}}     & \multicolumn{3}{c}{\textbf{Connectivity}}                              \\
+    \multicolumn{1}{c}{\textbf{Hardware}}     & \multicolumn{3}{c}{\textbf{Superconducting}} & \multicolumn{3}{c}{\textbf{Ion trap}}                                  \\
+    Sucess probability\%                      & Obs                                          & Rand                                      & Sys & Obs     & Rand & Sys \\
+    Margolus                                  & 74.1(7)                                      & 82                                        & 75  & 90.1(2) & 91   & 81  \\
+    Toffoli                                   & 52.6(8)                                      & 78                                        & 59  & 85.0(2) & 89   & 78  \\
+    Bernstein-Vazirani                        & 72.8(5)                                      & 80                                        & 74  & 85.1(1) & 90   & 77  \\
+    Hidden Shift                              & 35.1(6)                                      & 75                                        & 52  & 77.1(2) & 86   & 57  \\
+  \end{tabular}
+  \caption{
+    Reproduced from \autocite[6]{linke_2017_experimental} Summary of the achieved success probabilities for
+    the implemented circuits, in percent.
+  }
+\end{table}
+
 \section{Conclusion}
 
 In summary, the physical implementation of quantum computers presents a landscape of both promising opportunities and formidable challenges. Quantum mechanics, with its foundational postulates, establishes the framework for comprehending the intricate behavior of quantum systems. The prerequisites for a viable quantum computer, as outlined by DiVincenzo, encompass a scalable physical system housing well-characterized qubits, the capacity to initialize and manipulate qubits, extended decoherence times, a universal set of quantum gates, and qubit-specific measurement capabilities.
@@ -599,9 +568,5 @@ Despite those obstacles, the relentless progress in hardware development, error 
 \printbibliography
 
 \appendix
-
-% \section{Example Appendix Section}
-
-% Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
 
 \end{document}
