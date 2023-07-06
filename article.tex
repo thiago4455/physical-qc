@@ -27,7 +27,8 @@
 
 \begin{abstract}
   This work aims to explain the physical principles of quantum computers. We will discuss how some physical systems can be used to peform computation, specialy with respect to three chosen impleentations, as well as the main advantages and disadvantages of each implementation.
-  The implementations we will discuss are ion traps, photonic models and solid state systems. The ion trap model is based on the manipulation of ions in a trap, the photonic model is based on the manipulation of photons in a cavity and the solid state model is based on the manipulation of electrons in a superconducting circuit. The main advantages and disadvantages of each model are presented, as well as the main challenges for the construction of a quantum computer.
+  The implementations we will discuss are ion traps, photonic models and solid state systems. The ion trap model revolves around the manipulation of ions confined within a trap, while the photonic model centers on the manipulation of photons within a cavity, and the solid-state model focuses on the manipulation of electrons within a superconducting circuit.
+  The main advantages and disadvantages of each model are presented, as well as the main challenges for the construction of a quantum computer.
 
 \end{abstract}
 
@@ -42,6 +43,8 @@ Nonetheless, fully harnessing the power of quantum computing necessitates scalab
 In the race for scalable quantum computing, current leading implementations encompass photonics-based platforms, trapped ions, and superconducting circuits. Each approach possesses distinctive strengths and trade-offs. Of particular note are superconducting circuits, which have garnered significant attention owing to their ability to attain long qubit coherence times and facilitate the realization of multi-qubit gates.\autocite{arute_2019_quantum}.
 
 While quantum computing remains in its early stages, progress in hardware development, error correction techniques, and algorithmic advancements holds the key to unlocking its transformative potential. As researchers and engineers strive to surmount the formidable challenges, quantum computing continues to captivate the scientific community and industry, offering a tantalizing glimpse into a future brimming with unparalleled computational capabilities.
+
+In this work we will discuss the physical principles of quantum computers. We will discuss how some physical systems can be used to peform computation~\ref{sec:physical_properties}, specialy with respect to three chosen impleentations~\ref{cap:photonic}~\ref{cap:ion}~\ref{cap:superconductor}, as well as the main advantages and disadvantages of each implementation~\ref{sec:comparative}.
 
 
 \section{Physical Propertires}
@@ -70,8 +73,8 @@ The postulates of quantum mechanics serve as the foundational principles that un
 \noindent \(H\) is called the {\it Hamiltonian operator} of the system, and it is the generator of time translations. The eigenvalues of \(H\) are the possible values of the total energy of the system, and the corresponding eigenvectors are the stationary states of the system.
 The time evolution of the state vector \(\ket{\psi(t)}\) is governed by the Schrödinger equation, which is a linear differential equation. The solution of this equation can be encapsulated by the time evolution operator \(U(t,t_0)\), which is unitary and is given by:
 \begin{align}
-                   & U(t,t_0)       = e^{-iH(t-t_0)/\hbar} \\
-  \ket{\psi(t)}  = & U(t,t_0)\ket{\psi(t_0)}
+                   & U(t,t_0)       = e^{-iH(t-t_0)/\hbar}     \\
+  \ket{\psi(t)}  = & U(t,t_0)\ket{\psi(t_0)}\label{eq:unitary}
 \end{align}
 
 \noindent In contemplating the utilization of quantum states for computational purposes, we discern that the temporal evolution, governed by an unitary operator, stands as the sole non-projective method for manipulating our state. Additionally, it is crucial to recognize the consequences of measuring the system, wherein the outcomes become confined to observables. The measurement process induces the collapse of the state into a subspace, thereby effectively destroying the previous information.
@@ -201,7 +204,7 @@ Now we are going to carry out the first quantization of the theory, that is, pro
 \end{equation}
 
 
-Rearranging the equation in the way and putting \(\hbar\) in evidence \(\hat{H} = \frac{\hbar\omega_0}{2}(\frac{\hat{p}^2}{m\hbar\omega_0} + \frac{m\omega\hat{x}^2}{\hbar})\), defining two new operators as \(\hat{P} = \sqrt{\frac{1}{m\hbar\omega_0}}\hat{p}\)  and \(\hat{X} = \sqrt{\frac{m\omega_0}{\hbar}}\hat{x}\), we get: \(\frac{\hbar\omega_0}{2}(\hat{P}^2 + \hat{X}^2) = \frac{\hbar\omega_0}{2}((\hat{X} + i\hat{P})(\hat{X} - i\hat{P}) + i\hat{X}\hat{P} - i\hat{P}\hat{X})\). What do we gain by writing like this? To know this just note that \(\hat{X}\hat{P} - \hat{P}\hat{X}\) is the commutator between \(\hat{X}\) and \(\hat{P}\), \([\hat{X}, \hat{P}]\) which is equal to \(\sqrt{\frac{m\omega_0}{\hbar}\frac{1}{m\omega_0\hbar}}[\hat{x}, \hat{p}]\). Now notice that the commutator between momentum and position is well known \([\hat{p}, \hat{x}] = i\hbar \). Substituting these relations in the equations we arrive at the following Hamiltonian expression \(\hat{H} = \hbar\omega_0(\frac{\hat{X} + i\hat{P}}{\sqrt{2}}\frac{\hat{X}-i\hat{P}}{\sqrt{2}} - \frac{1}{2})\). Now notice that in \(\frac{\hat{X} + i\hat{P}}{\sqrt{2}}\), \(\hat{X}\)  and \(\hat{P}\) are hermitian as we know \(\hat{x}\) and \(\hat{p}\) must be hermitian as discussed in the introduction, so we can define \(\hat{\alpha} = \frac{\hat{X} + i\hat{P}}{\sqrt{2}}\) and \(\hat{\alpha}^{\dag}\) would be \(\frac{\hat{X} - i\hat{P}}{\sqrt{2}}\). resulting in:
+Rearranging the equation in the way and putting \(\hbar\) in evidence \(\hat{H} = \frac{\hbar\omega_0}{2}(\frac{\hat{p}^2}{m\hbar\omega_0} + \frac{m\omega\hat{x}^2}{\hbar})\), defining two new operators as \(\hat{P} = \sqrt{\frac{1}{m\hbar\omega_0}}\hat{p}\) and \(\hat{X} = \sqrt{\frac{m\omega_0}{\hbar}}\hat{x}\), we get: \(\frac{\hbar\omega_0}{2}(\hat{P}^2 + \hat{X}^2) = \frac{\hbar\omega_0}{2}((\hat{X} + i\hat{P})(\hat{X} - i\hat{P}) + i\hat{X}\hat{P} - i\hat{P}\hat{X})\). What do we gain by writing like this? To know this just note that \(\hat{X}\hat{P} - \hat{P}\hat{X}\) is the commutator between \(\hat{X}\) and \(\hat{P}\), \([\hat{X}, \hat{P}]\) which is equal to \(\sqrt{\frac{m\omega_0}{\hbar}\frac{1}{m\omega_0\hbar}}[\hat{x}, \hat{p}]\). Now notice that the commutator between momentum and position is well known \([\hat{p}, \hat{x}] = i\hbar\). Substituting these relations in the equations we arrive at the following Hamiltonian expression \(\hat{H} = \hbar\omega_0(\frac{\hat{X} + i\hat{P}}{\sqrt{2}}\frac{\hat{X}-i\hat{P}}{\sqrt{2}} - \frac{1}{2})\). Now notice that in \(\frac{\hat{X} + i\hat{P}}{\sqrt{2}}\), \(\hat{X}\) and \(\hat{P}\) are hermitian as we know \(\hat{x}\)  and \(\hat{p}\) must be hermitian as discussed in the introduction, so we can define \(\hat{\alpha} = \frac{\hat{X} + i\hat{P}}{\sqrt{2}}\) and \(\hat{\alpha}^{\dag}\) would be \(\frac{\hat{X} - i\hat{P}}{\sqrt{2}}\). resulting in:
 
 \begin{equation}
   \begin{aligned}\label{eq:10}
@@ -210,15 +213,34 @@ Rearranging the equation in the way and putting \(\hbar\) in evidence \(\hat{H} 
 \end{equation}
 
 
-Notice that the second term $\frac{\hbar\omega_0}{2}$ is actually the called zero point energy, note that it does not depend on the position or momentum operators, being a constant that only describes the system's ground state of energy and only contributes with an unobservable overall phase factor, which can be disregarded for our present purpose. Finally reducing our Hamiltonian to:
+Now notice that the commutator between the annihilation and creation operator is \([\alpha, \alpha^{\dag}] = 1\), so the equation also can be written like:
 
 \begin{equation}
-  \begin{aligned}\label{eq:11}
-    \hat{H} = \hbar\omega_0\hat{\alpha}\hat{\alpha}^{\dag}
+  \begin{aligned}\label{eq:10}
+    \hat{H} = \hbar\omega_0(\hat{\alpha}^{\dag}\hat{\alpha} + \frac{1}{2})
   \end{aligned}
 \end{equation}
 
-And as we show in equation 2, the time evolution will be given by:
+
+Where \(\hat{\alpha}^{\dag}\hat{\alpha}\) is often called Particle number operator or just Number operator represented by:
+
+\begin{equation}
+  \begin{aligned}\label{eq:10}
+    \hat{N} = \hat{\alpha}^{\dag}\hat{\alpha}
+  \end{aligned}
+\end{equation}
+
+
+Notice that the second term \(\frac{\hbar\omega_0}{2}\) is actually the called zero point energy, note that it does not depend on the position or momentum operators, being a constant that only describes the system's ground state of energy and only contributes with an unobservable overall phase factor, which can be disregarded for our present purpose. Finally reducing our Hamiltonian to:
+
+\begin{equation}
+  \begin{aligned}\label{eq:11}
+    \hat{H} = \hbar\omega_0\hat{N}
+  \end{aligned}
+\end{equation}
+
+
+And as we show in equation~\ref{eq:unitary}, the time evolution will be given by:
 
 \begin{equation}
   \begin{aligned}\label{eq:12}
@@ -226,7 +248,8 @@ And as we show in equation 2, the time evolution will be given by:
   \end{aligned}
 \end{equation}
 
-Now we will show some properties of solutions of the quantum harmonic oscillator, first of all let's show that all the possible energy values for \(\hat{H}\) are positive. To show this let's remember that \(\hat{H} = \hbar\omega_0\hat{\alpha}\hat{\alpha}^{\dag}\) implies that \(\hat{H}\) and \(\hat{\alpha}\hat{\alpha}^{\dag}\) have the same set of eigenvectors so \(\hat{\alpha}\hat{\alpha}^{\dag}\ket{\psi} = \lambda_i\ket{\psi}\) and \(\hat{H}\ket{\psi} = \hbar\omega_0\lambda_i\ket{\psi}\). Consider the norm squared of the following state \(||\hat{\alpha}\ket{\psi}||^2\), this must be greater or equal 0 by definition of norm, let's calculate it: \(||\hat{\alpha}\ket{\psi}||^2 = \bra{\psi}\hat{\alpha}\hat{\alpha}^{\dag}\ket{\psi}\) using that \(\hat{\alpha}\hat{\alpha}^{\dag}\ket{\psi} = \lambda_i\ket{\psi}\) we have \(\lambda_i\bra{\psi}\ket{\psi} \geq 0\) as \(\ket{\psi}\) is part of orthonormal we have \(\lambda_i \geq 0\) and finally:
+
+Now we will show some properties of solutions of the quantum harmonic oscillator, first of all let's show that all the possible energy values for \(\hat{H}\) are positive. To show this let's remember that \(\hat{H} = \hbar\omega_0\hat{N}\) implies that \(\hat{H}\) and \(\hat{N}\) have the same set of eigenvectors so \(\hat{N}\ket{\psi} = \lambda_i\ket{\psi}\) and \(\hat{H}\ket{\psi} = \hbar\omega_0\lambda_i\ket{\psi}\). Consider the norm squared of the following state \(||\hat{\alpha}\ket{\psi}||^2\), this must be greater or equal 0 by definition of norm, let's calculate it: \(||\hat{\alpha}\ket{\psi}||^2 = \bra{\psi}\hat{N}\ket{\psi}\) using that \(\hat{N}\ket{\psi} = \lambda_i\ket{\psi}\) we have \(\lambda_i\bra{\psi}\ket{\psi} \geq 0\) as \(\ket{\psi}\) is orthonormal we have \(\lambda_i \geq 0\) and finally:
 
 \begin{equation}
   \begin{aligned}\label{eq:13}
@@ -234,25 +257,130 @@ Now we will show some properties of solutions of the quantum harmonic oscillator
   \end{aligned}
 \end{equation}
 
-The next property we want to prove is that \(\hat{\alpha}\hat{\alpha}^{\dag}\hat{\alpha}\ket{\psi} = (\lambda-1)\hat{\alpha}\ket{\psi}\) That is, we want to show that \(\alpha\ket{\psi}\)  is eigenvector of \(\hat{\alpha}\hat{\alpha}^{\dag}\)  with eigenvalue \(\lambda-1\). For this, let's do the commutator between \([\hat{\alpha}\hat{\alpha}^{\dag}, \hat{\alpha}]\)  which is equal to \(\hat{\alpha}^{\dag}[\hat{\alpha}, \hat{\alpha}] + [\hat{\alpha}^{\dag}, \hat{\alpha}]\hat{\alpha} = -\hat{\alpha}\).
 
-then we have the following relationship:
+The next property we want to prove is that \(\hat{N}\hat{\alpha}\ket{\psi} = (\lambda-1)\hat{\alpha}\ket{\psi}\) That is, we want to show that \(\alpha\ket{\psi}\) is eigenvector of \(\hat{\alpha}\hat{\alpha}^{\dag}\) with eigenvalue \(\lambda-1\). For this, let's do the commutator between \([\hat{\alpha}\hat{\alpha}^{\dag}, \hat{\alpha}]\) which is equal to \(\hat{\alpha}^{\dag}[\hat{\alpha}, \hat{\alpha}] + [\hat{\alpha}^{\dag}, \hat{\alpha}]\hat{\alpha} = -\hat{\alpha}\) then we have the following relationship: \(-\hat{\alpha}\ket{\psi} = \hat{N}\hat{\alpha}\ket{\psi} - \hat{\alpha}\ket{\psi} \) then the property is indeed valid:
+
 \begin{equation}
-  \begin{aligned}\label{eq:14}
+  \begin{aligned}\label{eq:14.1}
+    \hat{N}\hat{\alpha}\ket{\psi} = (\lambda-1)\hat{\alpha}\ket{\psi}
+  \end{aligned}
+\end{equation}
+
+
+Note that if \(\lambda_i = 0\), then \(a\ket{\psi_i} = 0\), so the eigenvalues of \(\hat{N}\) must be integers non negatives. Using the same idea as above you can conclude that \(\hat{N}\hat{a}^{\dag}\ket{\psi} = (\lambda+1)\hat{a}^{\dag}\ket{\psi}\). The next step is to show that these eigenvalues are non-degenerate, to do this let's show that the eigenvalue 0 is not degenerated so by the recursive way of the expression no eigenvalue will be degenerated. We know that \(\hat{a}\ket{\psi_i}\) with \(\lambda_i = 0\) is equal to \(0\). But remember that \(\hat{a} = \hat{p} - im\omega_0\hat{x}\), using the equations (5) and (6) we fall into the following differential equation: \(i\hbar\frac{d\psi(x)}{dx} + im\omega_0 x\psi(x) = 0\) which solution is:
+
+\begin{equation}
+  \begin{aligned}\label{eq:14.2}
+    \psi(x) = \psi(0)e^{\frac{-m\omega_0}{2\pi}x^2}
+  \end{aligned}
+\end{equation}
+
+
+This basically means that all harmonic oscillator solutions for the 0 eigenvalue are linearly dependent, which reveals that they actually represent the same eigenstate, so the eigenvalues of \(\hat{N}\) are non-degenerate. Now notice that \(\bra{n}\hat{N}\ket{n} = \lambda\lambda^{}\) so \(n = \lambda\lambda{}\) where \(\lambda\) is eigenvalue of \(\hat{\alpha}\) and \(n\) is eigenvalue of \(\hat{N}\). We can choose \(e^{i\theta}\ket{n}\) to be our new states \(\ket{n}\) so that now all eigenvalues of \(\hat{a}\) are \(\lambda \in \textbf{R}\) and by consequence \(n = \lambda^2\). This results in very interesting properties of the annihilation and creation operators, they are:
+
+\begin{equation}
+  \begin{aligned}\label{eq:14.3}
+    \hat{\alpha}\ket{n} = \sqrt{n}\ket{n-1}
+  \end{aligned}
+\end{equation}
+
+\begin{equation}
+  \begin{aligned}\label{eq:14.4}
+    \hat{\alpha}^{\dag}\ket{n} = \sqrt{n+1}\ket{n+1}
+  \end{aligned}
+\end{equation}
+
+\begin{equation}
+  \begin{aligned}\label{eq:14.5}
+    \hat{N}\ket{n} = n\ket{n}
+  \end{aligned}
+\end{equation}
+
+Then the time evolution of a given state \(\ket{\psi}\) is given by:
+
+\begin{equation}
+  \begin{aligned}\label{eq:14.6}
+    \ket{\psi} = \sum_{n=0}{C_n e^{-i\omega_0nt}\ket{n}}
+  \end{aligned}
+\end{equation}
+
+And any possible state can be written from the recurrence relations as(see eq.~\ref{eq:14.4}):
+
+\begin{equation}
+  \begin{aligned}\label{eq:14.7}
     \ket{n} = \frac{(\hat{a}^{\dag})^n}{\sqrt{n!}}\ket{0}
   \end{aligned}
 \end{equation}
 
 
-Now that we have outlined the theory behind the Hamiltonian and time evolution of the model, we are going to use what is known as a coherent state, which is a quantum state defined as the only eigenstate of the annihilation operator \(\hat{a}\) to be the state of the photons. This formula means that a coherent state remains unchanged by the annihilation of field excitation or, say, a particle
-
-\(\ket{\beta} = \sum_{n=0}{C_n \ket{n}}\) applying the annihilation operator we get \(\hat{a}\ket{\beta} = \hat{a}(\sum_{n=0}{C_n \ket{n}})\) using the definition of \(\ket{n}\) given by Equation~\ref{eq:14} we get the state:
+Now that we have outlined the theory behind the Hamiltonian and time evolution of the model, let's start preparing the initial state of the qubits that will be given by the incidence of a laser for example, which produces coherent electromagnetic waves, since they are all in phase. The photons will be in a superposition state given by what is known as a coherent state, which is a quantum state defined as \(\ket{\beta}\), also called Glauber state, which is defined as eigenstate of the amplitude operator, the annihilation operator \(\hat{\alpha}\) , with eigenvalues \(\beta \in \textbf{C}\)~\autocite{bertlmann_2008_theoretical}.
+Normalizing the superposition we arrive at the state:
 
 \begin{equation}
   \begin{aligned}\label{eq:15}
-    \ket{\beta} = e^{\frac{-|\beta|^2}{2}}\sum_{n=0}^{\infty}{\frac{\beta^n}{\sqrt{n!}}\ket{0}}
+    \ket{\beta} = e^{\frac{-|\beta|^2}{2}}\sum_{n=0}^{\infty}{\frac{\beta^n}{\sqrt{n!}}\ket{n}}
   \end{aligned}
 \end{equation}
+
+
+Note that by the equation~\ref{eq:14} we would have \(\ket{\psi(t)} = c_0\ket{0} + c_1e^{-i\omega_0t}\) so what's handy here is take an dual-rail representation \(\ket{\psi} = c_0\ket{01} + c_1\ket{10}\) to be our logical \(\ket{0}\) and \(\ket{1}\) (our computational basis), because now the state only changes by an overall phase, which is undetectable. To carry out unitary transformations, which would be equivalent to our logic gates inside a classical computer, we can use Phase shifters that will slow down the propagation of photons using a medium with a different index of refraction where the relationship between the time to go through a \(L\) distance can be expressed by \(\Delta \equiv \frac{(n - n_0)L}{c}\) where \(c\) is the light velocity \(n\) is the new index of refraction of the environment, and \(n_0\) is the index of refraction in vacuum. So applying some phase shifter \(P\) to the state \(\ket{\psi} = c_0\ket{01} + c_1\ket{10}\) is equivalent to do \(P\ket{\psi} = c_0e^{\frac{-i\Delta}{2}} + c_1e^{\frac{i\Delta}{2}}\) which can be viewed as a rotation using the usual Pauli Operator Z as:
+
+\begin{equation}
+  \begin{aligned}\label{eq:15}
+    R_z(\Delta) = e^{\frac{-iZ\Delta}{2}}
+  \end{aligned}
+\end{equation}
+
+
+Where you can also think the Hamiltonian of the system like:
+
+\begin{equation}
+  \begin{aligned}\label{eq:15}
+    \hat{H} = (n_0 - n)Z
+  \end{aligned}
+\end{equation}
+
+
+Other way to perform unitary transformations in the state to simulate quantum gates is using the Beamsplitter which can be seen as the following unitary operation:
+
+\begin{equation}
+  \begin{aligned}\label{eq:15}
+    \hat{B} = e^{\theta(a^{\dag}b - ab^\dag)}
+  \end{aligned}
+\end{equation}
+
+Where \(a\) and \(a^{\dag}\) are the annihilation and creation operators of the first mode and \(b\) and \(b^{\dag}\) are the annihilation and creation operators of the second mode where they have the following relationship:
+
+\begin{figure}[t]
+  \centering
+  \includegraphics[width=0.75\linewidth]{figs/beamsplitter.pdf}
+  \caption{(Reproduced from \autocite[289]{nielsen_2010_quantum})}
+  \label{fig:beamsplitter}
+\end{figure}
+
+Applying B to a and b and applying its Hermitian conjugate results in
+
+\begin{equation}
+  \begin{aligned}\label{eq:15}
+    BaB^{\dag} = a\cos\theta + b\sin\theta
+  \end{aligned}
+\end{equation}
+
+\begin{equation}
+  \begin{aligned}\label{eq:15}
+    BbB^{\dag} = -a\sin\theta + b\cos\theta
+  \end{aligned}
+\end{equation}
+
+
+Then apply \(B\) to a state \(\ket{\psi} = c_0\ket{01} + c_1\ket{10}\) can be seen as \(B\ket{\psi} = c_0e^{\frac{-i\theta Y}{2}}\ket{01} + c_1e^{\frac{i\theta Y}{2}}\ket{10}\). Where Y is the usual Pauli Operator Y that performs operation over the \(\hat{y}\) axis.
+
+\begin{equation}
+  \begin{aligned}\label{eq:15}
+    R_y(\theta) = e^{\frac{-i\theta Y}{2}}
+  \end{aligned}
+\end{equation}
+
 
 
 \section{Ion Trap}
@@ -454,8 +582,17 @@ Superconducting qubits are susceptible to fluctuations in the magnetic flux pass
 Proximity to charge fluctuations can impact the performance of superconducting qubits. Charge noise emanates from nearby charge traps or impurities within the substrate or dielectric layers. These fluctuations can perturb the qubit's energy levels, thereby introducing errors during qubit operations.
 
 \section{Comparative Analysis}
+\label{sec:comparative}
 
 \section{Conclusion}
+
+In summary, the physical implementation of quantum computers presents a landscape of both promising opportunities and formidable challenges. Quantum mechanics, with its foundational postulates, establishes the framework for comprehending the intricate behavior of quantum systems. The prerequisites for a viable quantum computer, as outlined by DiVincenzo, encompass a scalable physical system housing well-characterized qubits, the capacity to initialize and manipulate qubits, extended decoherence times, a universal set of quantum gates, and qubit-specific measurement capabilities.
+
+Numerous approaches have been explored for the realization of quantum computers, with photonics-based platforms, trapped ions, and superconducting circuits emerging as leading contenders. Each avenue possesses its unique advantages and disadvantages. Notably, superconducting circuits have garnered significant attention owing to their potential for sustaining prolonged qubit coherence and enabling the implementation of multi-qubit gates.
+
+Nevertheless, the construction of large-scale quantum architectures remains a formidable undertaking, primarily due to the fragility of qubits and the imperative of upholding quantum coherence amidst environmental disturbances. Challenges encompass decoherence, gate operation durations, and the reliable transmission of qubits, necessitating focused attention to achieve practical and scalable quantum computing.
+
+Despite those obstacles, the relentless progress in hardware development, error correction techniques, and algorithmic enhancements presents a hopeful outlook for the trajectory of quantum computing. As dedicated researchers and engineers persistently push the frontiers of quantum technology, the transformative power of quantum computing emerges as a pivotal force poised to revolutionize diverse domains such as cryptography, optimization, simulation, and machine learning. The expedition toward unlocking the complete potential of quantum computers stands as an ongoing pursuit that captivates the scientific community and industry alike, forging a path towards a future embellished with unparalleled computational capacities.
 
 \printendnotes
 
