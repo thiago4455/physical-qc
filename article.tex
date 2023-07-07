@@ -140,7 +140,7 @@ Now we are going to carry out the first quantization of the theory, that is, pro
 \end{equation}
 
 
-Rearranging the equation in the way and putting \(\hbar\) in evidence \(\hat{H} = \frac{\hbar\omega_0}{2}(\frac{\hat{p}^2}{m\hbar\omega_0} + \frac{m\omega\hat{x}^2}{\hbar})\), defining two new operators as \(\hat{P} = \sqrt{\frac{1}{m\hbar\omega_0}}\hat{p}\) and \(\hat{X} = \sqrt{\frac{m\omega_0}{\hbar}}\hat{x}\), we get: \(\frac{\hbar\omega_0}{2}(\hat{P}^2 + \hat{X}^2) = \frac{\hbar\omega_0}{2}((\hat{X} + i\hat{P})(\hat{X} - i\hat{P}) + i\hat{X}\hat{P} - i\hat{P}\hat{X})\). What do we gain by writing like this? To know this just note that \(\hat{X}\hat{P} - \hat{P}\hat{X}\) is the commutator between \(\hat{X}\) and \(\hat{P}\), \([\hat{X}, \hat{P}]\) which is equal to \(\sqrt{\frac{m\omega_0}{\hbar}\frac{1}{m\omega_0\hbar}}[\hat{x}, \hat{p}]\). Now notice that the commutator between momentum and position is well known \([\hat{p}, \hat{x}] = i\hbar\). Substituting these relations in the equations we arrive at the following Hamiltonian expression \(\hat{H} = \hbar\omega_0(\frac{\hat{X} + i\hat{P}}{\sqrt{2}}\frac{\hat{X}-i\hat{P}}{\sqrt{2}} - \frac{1}{2})\). Now notice that in \(\frac{\hat{X} + i\hat{P}}{\sqrt{2}}\), \(\hat{X}\) and \(\hat{P}\) are hermitian as we know \(\hat{x}\)  and \(\hat{p}\) must be hermitian as discussed in the introduction, so we can define \(\hat{\alpha} = \frac{\hat{X} + i\hat{P}}{\sqrt{2}}\) and \(\hat{\alpha}^{\dag}\) would be \(\frac{\hat{X} - i\hat{P}}{\sqrt{2}}\). resulting in:
+Rearranging the equation in the way and putting \(\hbar\) in evidence \(\hat{H} = \frac{\hbar\omega_0}{2}(\frac{\hat{p}^2}{m\hbar\omega_0} + \frac{m\omega\hat{x}^2}{\hbar})\), defining two new operators as \(\hat{P} = \sqrt{\frac{1}{m\hbar\omega_0}}\hat{p}\) and \(\hat{X} = \sqrt{\frac{m\omega_0}{\hbar}}\hat{x}\), we get: \(\frac{\hbar\omega_0}{2}(\hat{P}^2 + \hat{X}^2) = \frac{\hbar\omega_0}{2}((\hat{X} + i\hat{P})(\hat{X} - i\hat{P}) + i\hat{X}\hat{P} - i\hat{P}\hat{X})\). What do we gain by writing like this? To know this just note that \(\hat{X}\hat{P} - \hat{P}\hat{X}\) is the commutator between \(\hat{X}\) and \(\hat{P}\), \([\hat{X}, \hat{P}]\) which is equal to \(\sqrt{\frac{m\omega_0}{\hbar}\frac{1}{m\omega_0\hbar}}[\hat{x}, \hat{p}]\). Now notice that the commutator between momentum and position is well known \([\hat{x}, \hat{p}] = i\hbar\). Substituting these relations in the equations we arrive at the following Hamiltonian expression \(\hat{H} = \hbar\omega_0(\frac{\hat{X} + i\hat{P}}{\sqrt{2}}\frac{\hat{X}-i\hat{P}}{\sqrt{2}} - \frac{1}{2})\). Now notice that in \(\frac{\hat{X} + i\hat{P}}{\sqrt{2}}\), \(\hat{X}\) and \(\hat{P}\) are hermitian as we know \(\hat{x}\)  and \(\hat{p}\) must be hermitian as discussed in the introduction, so we can define \(\hat{\alpha} = \frac{\hat{X} + i\hat{P}}{\sqrt{2}}\) and \(\hat{\alpha}^{\dag}\) would be \(\frac{\hat{X} - i\hat{P}}{\sqrt{2}}\). resulting in:
 
 \begin{equation}
   \begin{aligned}\label{eq:10}
@@ -194,7 +194,7 @@ Now we will show some properties of solutions of the quantum harmonic oscillator
 \end{equation}
 
 
-The next property we want to prove is that \(\hat{N}\hat{\alpha}\ket{\psi} = (\lambda-1)\hat{\alpha}\ket{\psi}\) That is, we want to show that \(\alpha\ket{\psi}\) is eigenvector of \(\hat{\alpha}\hat{\alpha}^{\dag}\) with eigenvalue \(\lambda-1\). For this, let's do the commutator between \([\hat{\alpha}\hat{\alpha}^{\dag}, \hat{\alpha}]\) which is equal to \(\hat{\alpha}^{\dag}[\hat{\alpha}, \hat{\alpha}] + [\hat{\alpha}^{\dag}, \hat{\alpha}]\hat{\alpha} = -\hat{\alpha}\) then we have the following relationship: \(-\hat{\alpha}\ket{\psi} = \hat{N}\hat{\alpha}\ket{\psi} - \hat{\alpha}\ket{\psi} \) then the property is indeed valid:
+The next property we want to prove is that \(\hat{N}\hat{\alpha}\ket{\psi} = (\lambda-1)\hat{\alpha}\ket{\psi}\) That is, we want to show that \(\alpha\ket{\psi}\) is eigenvector of \(\hat{\alpha}\hat{\alpha}^{\dag}\) with eigenvalue \(\lambda-1\). For this, let's do the commutator between \([\hat{\alpha}^{\dag}\hat{\alpha}, \hat{\alpha}]\) which is equal to \(\hat{\alpha}^{\dag}[\hat{\alpha}, \hat{\alpha}] + [\hat{\alpha}^{\dag}, \hat{\alpha}]\hat{\alpha} = -\hat{\alpha}\) then we have the following relationship: \(-\hat{\alpha}\ket{\psi} = \hat{N}\hat{\alpha}\ket{\psi} - \hat{\alpha}\ket{\psi} \) then the property is indeed valid:
 
 \begin{equation}
   \begin{aligned}\label{eq:14.1}
@@ -203,7 +203,7 @@ The next property we want to prove is that \(\hat{N}\hat{\alpha}\ket{\psi} = (\l
 \end{equation}
 
 
-Note that if \(\lambda_i = 0\), then \(a\ket{\psi_i} = 0\), so the eigenvalues of \(\hat{N}\) must be integers non negatives. Using the same idea as above you can conclude that \(\hat{N}\hat{a}^{\dag}\ket{\psi} = (\lambda+1)\hat{a}^{\dag}\ket{\psi}\). The next step is to show that these eigenvalues are non-degenerate, to do this let's show that the eigenvalue 0 is not degenerated so by the recursive way of the expression no eigenvalue will be degenerated. We know that \(\hat{a}\ket{\psi_i}\) with \(\lambda_i = 0\) is equal to \(0\). But remember that \(\hat{a} = \hat{p} - im\omega_0\hat{x}\), using the equations (5) and (6) we fall into the following differential equation: \(i\hbar\frac{d\psi(x)}{dx} + im\omega_0 x\psi(x) = 0\) which solution is:
+Note that if \(\lambda_i = 0\), then \(a\ket{\psi_i} = 0\), so the eigenvalues of \(\hat{N}\) must be integers non negatives. Using the same idea as above you can conclude that \(\hat{N}\hat{a}^{\dag}\ket{\psi} = (\lambda+1)\hat{a}^{\dag}\ket{\psi}\). The next step is to show that these eigenvalues are non-degenerate, to do this let's show that the eigenvalue 0 is not degenerated so by the recursive way of the expression no eigenvalue will be degenerated. We know that \(\hat{a}\ket{\psi_i}\) with \(\lambda_i = 0\) is equal to \(0\). But remember that \(\hat{a} = \hat{p} - im\omega_0\hat{x}\), using the postulate (6) we fall into the following differential equation: \(i\hbar\frac{d\psi(x)}{dx} + im\omega_0 x\psi(x) = 0\) which solution is:
 
 \begin{equation}
   \begin{aligned}\label{eq:14.2}
@@ -212,7 +212,7 @@ Note that if \(\lambda_i = 0\), then \(a\ket{\psi_i} = 0\), so the eigenvalues o
 \end{equation}
 
 
-This basically means that all harmonic oscillator solutions for the 0 eigenvalue are linearly dependent, which reveals that they actually represent the same eigenstate, so the eigenvalues of \(\hat{N}\) are non-degenerate. Now notice that \(\bra{n}\hat{N}\ket{n} = \lambda\lambda^{}\) so \(n = \lambda\lambda{}\) where \(\lambda\) is eigenvalue of \(\hat{\alpha}\) and \(n\) is eigenvalue of \(\hat{N}\). We can choose \(e^{i\theta}\ket{n}\) to be our new states \(\ket{n}\) so that now all eigenvalues of \(\hat{a}\) are \(\lambda \in \textbf{R}\) and by consequence \(n = \lambda^2\). This results in very interesting properties of the annihilation and creation operators, they are:
+This basically means that all harmonic oscillator solutions for the 0 eigenvalue are linearly dependent, which reveals that they actually represent the same eigenstate, so the eigenvalues of \(\hat{N}\) are non-degenerate. Now notice that \(\bra{n}\hat{N}\ket{n} = \lambda\lambda^{*}\) so \(n = \lambda\lambda^{*}\) where \(\lambda\) is eigenvalue of \(\hat{\alpha}\) and \(n\) is eigenvalue of \(\hat{N}\). We can choose \(e^{i\theta}\ket{n}\) to be our new states \(\ket{n}\) so that now all eigenvalues of \(\hat{a}\) are \(\lambda \in \textbf{R}\) and by consequence \(n = \lambda^2\). This results in very interesting properties of the annihilation and creation operators, they are:
 
 \begin{equation}
   \begin{aligned}\label{eq:14.3}
@@ -259,7 +259,7 @@ Normalizing the superposition we arrive at the state:
 \end{equation}
 
 
-Note that by the equation~\ref{eq:14} we would have \(\ket{\psi(t)} = c_0\ket{0} + c_1e^{-i\omega_0t}\) so what's handy here is take an dual-rail representation \(\ket{\psi} = c_0\ket{01} + c_1\ket{10}\) to be our logical \(\ket{0}\) and \(\ket{1}\) (our computational basis), because now the state only changes by an overall phase, which is undetectable. To carry out unitary transformations, which would be equivalent to our logic gates inside a classical computer, we can use Phase shifters that will slow down the propagation of photons using a medium with a different index of refraction where the relationship between the time to go through a \(L\) distance can be expressed by \(\Delta \equiv \frac{(n - n_0)L}{c}\) where \(c\) is the light velocity \(n\) is the new index of refraction of the environment, and \(n_0\) is the index of refraction in vacuum. So applying some phase shifter \(P\) to the state \(\ket{\psi} = c_0\ket{01} + c_1\ket{10}\) is equivalent to do \(P\ket{\psi} = c_0e^{\frac{-i\Delta}{2}} + c_1e^{\frac{i\Delta}{2}}\) which can be viewed as a rotation using the usual Pauli Operator Z as:
+Note that by the equation~\ref{eq:14.6} we would have \(\ket{\psi(t)} = c_0\ket{0} + c_1e^{-i\omega_0t}\) so what's handy here is take an dual-rail representation \(\ket{\psi} = c_0\ket{01} + c_1\ket{10}\) to be our logical \(\ket{0}\) and \(\ket{1}\) (our computational basis), because now the state only changes by an overall phase, which is undetectable. To carry out unitary transformations, which would be equivalent to our logic gates inside a classical computer, we can use Phase shifters that will slow down the propagation of photons using a medium with a different index of refraction where the relationship between the time to go through a \(L\) distance can be expressed by \(\Delta \equiv \frac{(n - n_0)L}{c}\) where \(c\) is the light velocity \(n\) is the new index of refraction of the environment, and \(n_0\) is the index of refraction in vacuum. So applying some phase shifter \(P\) to the state \(\ket{\psi} = c_0\ket{01} + c_1\ket{10}\) is equivalent to do \(P\ket{\psi} = c_0e^{\frac{-i\Delta}{2}} + c_1e^{\frac{i\Delta}{2}}\) which can be viewed as a rotation using the usual Pauli Operator Z as:
 
 \begin{equation}
   \begin{aligned}\label{eq:15}
@@ -287,7 +287,7 @@ Other way to perform unitary transformations in the state to simulate quantum ga
 
 Where \(a\) and \(a^{\dag}\) are the annihilation and creation operators of the first mode and \(b\) and \(b^{\dag}\) are the annihilation and creation operators of the second mode where they have the following relationship:
 
-\begin{figure}[t]
+\begin{figure}[h]
   \centering
   \includegraphics[width=0.75\linewidth]{figs/beamsplitter.pdf}
   \caption{(Reproduced from \autocite[289]{nielsen_2010_quantum})}
@@ -539,13 +539,13 @@ The photonic model, in contrast to the other two, appears little in the realizat
 
 \begin{table}[]
   \begin{tabular}{lllllll}
-    \multicolumn{1}{c}{\textbf{Connectivity}} & \multicolumn{3}{c}{\textbf{Star shaped}}     & \multicolumn{3}{c}{\textbf{Connectivity}}                              \\
-    \multicolumn{1}{c}{\textbf{Hardware}}     & \multicolumn{3}{c}{\textbf{Superconducting}} & \multicolumn{3}{c}{\textbf{Ion trap}}                                  \\
-    Sucess probability\%                      & Obs                                          & Rand                                      & Sys & Obs     & Rand & Sys \\
-    Margolus                                  & 74.1(7)                                      & 82                                        & 75  & 90.1(2) & 91   & 81  \\
-    Toffoli                                   & 52.6(8)                                      & 78                                        & 59  & 85.0(2) & 89   & 78  \\
-    Bernstein-Vazirani                        & 72.8(5)                                      & 80                                        & 74  & 85.1(1) & 90   & 77  \\
-    Hidden Shift                              & 35.1(6)                                      & 75                                        & 52  & 77.1(2) & 86   & 57  \\
+    \multicolumn{1}{c}{\textbf{Connectivity}} & \multicolumn{3}{c}{\textbf{Star shaped}}     & \multicolumn{3}{c}{\textbf{Fully connected}}                              \\
+    \multicolumn{1}{c}{\textbf{Hardware}}     & \multicolumn{3}{c}{\textbf{Superconducting}} & \multicolumn{3}{c}{\textbf{Ion trap}}                                     \\
+    Sucess probability\%                      & Obs                                          & Rand                                         & Sys & Obs     & Rand & Sys \\
+    Margolus                                  & 74.1(7)                                      & 82                                           & 75  & 90.1(2) & 91   & 81  \\
+    Toffoli                                   & 52.6(8)                                      & 78                                           & 59  & 85.0(2) & 89   & 78  \\
+    Bernstein-Vazirani                        & 72.8(5)                                      & 80                                           & 74  & 85.1(1) & 90   & 77  \\
+    Hidden Shift                              & 35.1(6)                                      & 75                                           & 52  & 77.1(2) & 86   & 57  \\
   \end{tabular}
   \caption{
     Reproduced from \autocite[6]{linke_2017_experimental} Summary of the achieved success probabilities for
