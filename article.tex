@@ -26,7 +26,7 @@
 \begin{document}
 
 \begin{abstract}
-  This work aims to explain the physical principles of quantum computers. We will discuss how some physical systems can be used to peform computation, specialy with respect to three chosen impleentations, as well as the main advantages and disadvantages of each implementation.
+  This work aims to explain the physical principles of quantum computers. We will discuss how some physical systems can be used to peform computation, especially with respect to three chosen impleentations, as well as the main advantages and disadvantages of each implementation.
   The implementations we will discuss are ion traps, photonic models and solid state systems. The ion trap model revolves around the manipulation of ions confined within a trap, while the photonic model centers on the manipulation of photons within a cavity, and the solid-state model focuses on the manipulation of electrons within a superconducting circuit.
   The main advantages and disadvantages of each model are presented, as well as the main challenges for the construction of a quantum computer.
 
@@ -44,7 +44,7 @@ In the race for scalable quantum computing, current leading implementations enco
 
 While quantum computing remains in its early stages, progress in hardware development, error correction techniques, and algorithmic advancements holds the key to unlocking its transformative potential. As researchers and engineers strive to surmount the formidable challenges, quantum computing continues to captivate the scientific community and industry, offering a tantalizing glimpse into a future brimming with unparalleled computational capabilities.
 
-In this work we will discuss the physical principles of quantum computers. We will discuss how some physical systems can be used to peform computation~\ref{sec:physical_properties}, specialy with respect to three chosen impleentations~\ref{cap:photonic}~\ref{cap:ion}~\ref{cap:superconductor}, as well as the main advantages and disadvantages of each implementation~\ref{sec:comparative}.
+In this work we will discuss the physical principles of quantum computers. We will discuss how some physical systems can be used to peform computation~\ref{sec:physical_properties}, especially with respect to three chosen implementations~\ref{cap:photonic}~\ref{cap:ion}~\ref{cap:superconductor}, as well as the main advantages and disadvantages of each implementation~\ref{sec:comparative}.
 
 
 \section{Physical Propertires}
@@ -60,12 +60,12 @@ The postulates of quantum mechanics serve as the foundational principles that un
   \item \emph{The only possible result of the measurement of a physical quantity \(\mathcal{A}\) is one of the eigenvalues of the corresponding observable \(A\).}
 
   \item \emph{When the physical quantity A is measured on a system in the normalized state \(\ket{\psi}\) the probability \(\mathcal{P}(a_n)\)  of obtaining the eigenvalue \(a_n\) of the corresponding observable A is: \\
-          \( \mathcal{P}(a_n) = \sum_{i=1}^{g_n}\ket{\bra{u_n^i}\psi}|^2 \) \\
-          where \(g_n\) is the degree of degeneracy of \(a_n\) and \( \{ \ket{u_n^i} \} \) \( (i=1,2,\ldots, g_n) \) is an orthonormal set of vectors in the eigensubspace \(\mathcal{E}_n\) associated with the eigenvalue \(a_n\) of A.}
+        \( \mathcal{P}(a_n) = \sum_{i=1}^{g_n}\ket{\bra{u_n^i}\psi}|^2 \) \\
+        where \(g_n\) is the degree of degeneracy of \(a_n\) and \( \{ \ket{u_n^i} \}_{i=1}^{g_n} \) is an orthonormal set of vectors in the eigensubspace \(\mathcal{E}_n\) associated with the eigenvalue \(a_n\) of A.}
 
   \item \emph{If the measurement of the physical quantity \(\mathcal{A}\) on the system in the state \(\ket{\psi }\) gives the result \(a_n\) the state of the system immediately after the measurement is the normalized projection, \(\frac{P_n\ket{\psi }}{\sqrt{\bra{\psi }P_n\ket{\psi }} }\), of \(\ket{\psi }\) onto the eigensubspace associated with \(a_n\).}
 
-  \item \emph{The time evolution of the state vector \(|\psi (t)\) is governed by the Schrödinger equation: \\
+  \item \emph{The time evolution of the state vector \(\ket{\psi (t)}\) is governed by the Schrödinger equation: \\
           \(i\hbar \frac{d}{dt}\ket{\psi(t)} = H(t)\ket{\psi(t)}\) \\
           where \(H(t)\) is observable associated with the total energy of the system.}\label{post:schroedinger}
 \end{enumerate}
@@ -409,7 +409,7 @@ Regarding the sources of noise, numerous elements can influence the efficacy of 
 \section{Solid State: Superconducting Qubits}
 \label{cap:superconductor}
 
-A notable platform for constructing a multi-qubit quantum processor revolves around superconducting qubits. These qubits employ the quantum degrees of freedom found within nanofabricated, anharmonic oscillators built from superconducting circuit components. Div'rging from alternative platforms, wherein quantum information is encoded within natural microscopic quantum systems, superconducting qubits exhibit a macroscopic scale and are lithographically defined.
+A notable platform for constructing a multi-qubit quantum processor revolves around superconducting qubits. These qubits employ the quantum degrees of freedom found within nanofabricated, anharmonic oscillators built from superconducting circuit components. Diverging from alternative platforms, wherein quantum information is encoded within natural microscopic quantum systems, superconducting qubits exhibit a macroscopic scale and are lithographically defined.
 
 A striking characteristic of superconducting qubits resides in their energy-level spectra, which are determined by circuit element parameters. This configurability enables the design of ``atom-like'' energy spectra with specific desired properties. Hence, superconducting qubits are frequently hailed as artificial atoms, presenting a diverse parameter space that encompasses a myriad of qubit properties and operational modes. They offer a predictable performance with respect to transition frequencies, anharmonicity, and intricacy, providing a great oportunity to explore qubit implementations.
 
@@ -447,7 +447,7 @@ Combining the equations with the relations \( V = \frac{dI}{dt} \) and \( I = C 
 
 \noindent This Hamiltonian is analogous as the one for a harmonic oscillator, with mass \(C\) and resonant frequency \(\frac{1}{\sqrt{LC} }\).
 
-To probmote charge and flux to quantum operators, we can use the commutation relation \( [\hat\Phi, \hat Q] = i\hbar \). In a LC circuit, both the capacitor and inductor are linear components, so the Hamiltonian is then given by:
+To promote charge and flux to quantum operators, we can use the commutation relation \( [\hat\Phi, \hat Q] = i\hbar \). In a LC circuit, both the capacitor and inductor are linear components, so the Hamiltonian is then given by:
 \begin{equation}
   H = 4E_C n^2 = \frac{1}{2}E_L\phi^2
 \end{equation}
